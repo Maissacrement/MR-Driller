@@ -11,7 +11,7 @@
 ## Constraint
 
 - FR :
-`
+```
   1. Contrainte principal
     Deplacement : si meme niveau gauche droite, sinon entraine vers le bas par la gravite
     Block:
@@ -46,7 +46,7 @@
     Pause:
     -Le joueur doit pouvoir suspendre une partie en cours
 
-`
+```
 
 ## Class assumption
 
