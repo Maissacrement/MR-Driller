@@ -1,5 +1,23 @@
 # MR Driller : 1DEV
 
+## HOW USE GIT
+
+### General command to use before do anything
+
+- `git add .` : afin d'ajouter a git toute nos modification
+- `git commit -m 'message'` : marquer par une note chaque modification
+
+### Pousser un projet
+
+- `git push origin` : ajouter son code
+
+### OU
+
+### Recuperer les info sur la branch master
+
+- `git fetch origin` : Recuperer le dossier distant
+- `git merge origin/master` : Fusionner les repertoire
+
 ## Requirement
 
 - `Create class Perso`
@@ -46,7 +64,12 @@
     Pause:
     -Le joueur doit pouvoir suspendre une partie en cours
 
+
 ```
+
+## Comment resoudre le problem
+
+
 
 ## Class assumption
 
