@@ -2,7 +2,7 @@
 
 ############################################
 # Mr Driller project                       #
-# @author : Anatole JANVION, Emmario DELAR #
+# @author : Anatole JANVION, Emmario DELAR, Alexandre Berard #
 # Licence : Free                           #
 ############################################
 
