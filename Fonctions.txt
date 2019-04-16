@@ -1,0 +1,32 @@
+Associateur ? associe les valeurs du tableau avec les propriété des blocs
+Personnage ? https://python-3-patterns-idioms-test.readthedocs.io/en/latest/Singleton.html
+couleurs ? Différentie les blocs
+scène de jeu ? Afficher des blocs / personnage / UI
+Gravité ? Attirance vers le bas
+fusion ? fusionne des éléments
+destruction ? détruit des éléments
+mouvement du joueur ? *
+saut ? Déplacement vers le haut
+drill ? Destruction d’un bloc adjacent déclenché par le personnage
+clear ? Réinitialisation de la scène 
+pause ? Arret de tout / Reprise du jeu
+blocs spéciaux ? 
+score ? Valeur en fonction du game design
+mort ? -1 au stock de vie et si vie = -1 apelle game over et si vie => 0 respawn
+Ecrase ? 
+temporisation ? unité de temps paramétrable quand appelé
+Air vidé? ? Verifie que l’air n’est pas à 0, et si c’est le cas appelle mort
+Ligne d’arrivée ? vérifie quand le joueur arrive au bout du level
+Game over ? rapelle clear puis menu
+Reset manuel ? appelle clear puis génération
+respawn ? redonne le controle, 100 d’air, remet à la pos actuelle en détruisant le bloc de force
+superdrill ? drill One shot
+réserve d’air ? s’initialise à 100, -1 par seconde + -20 si bloc dur
+Vies ? stock de vie au cas ou bonus (pas sûr)
+fiole d’air ? donne +20 air, récoltée quand passe dessus (pas sûr)
+Caméra ? (affichage à faire plus tard)
+génération/difficulté ? Remplissage du tableau de blocs augmentant en difficulté en progressant dans les levels
+position personnage ? retourne la position du personnage
+Sauvegarde ? Etat suspendu du jeu qu’on stock
+
+Main ? Appel de toutes les fonctions
