@@ -1,4 +1,4 @@
-m# MR Driller : 1DEV
+# MR Driller : 1DEV
 
 ## HOW USE GIT
 
@@ -25,6 +25,23 @@ m# MR Driller : 1DEV
 - `Create an AssemblyBlock`
 - `Create class Fenetre`
 - `Create class Arme`
+
+## Jeux
+
+### 1. Creation des Blocks
+
+```
+   Class Block:
+    Propriete:
+      - Couleur : String
+      - Vie : Int
+      - Force : Int
+      - Position : [x,y]
+    function:
+      - isDead
+      - nearOf
+      - checkBlockColor
+```
 
 ## Constraint
 
