@@ -1,4 +1,10 @@
+<<<<<<< HEAD
 # MR Driller : 1DEV
+=======
+m# MR Driller : 1DEV
+#modif read me
+#deuxieme modification
+>>>>>>> 270103279165d419ecdd3b08aca5645bdb834484
 
 ## HOW USE GIT
 
