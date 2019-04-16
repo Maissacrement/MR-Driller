@@ -7,7 +7,7 @@
 - `git add .` : afin d'ajouter a git toute nos modification
 - `git commit -m 'message'` : marquer par une note chaque modification
 
-### Pousser un projet
+#### Pousser un projet
 
 - `git push origin` : ajouter son code
 
