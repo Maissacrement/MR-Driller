@@ -10,13 +10,17 @@ class Block():
 
         """reject"""
         if type(couleur) is not str:
-            raise ValueError
+            raise NameError('Color doit etre une chaine de caractere')
 
         if type(position) is not list:
-            raise ValueError
+            raise NameError('Position doit etre une list de forme [x,y]')
 
-        if type(self.vie) is not int:
-            raise ValueError
+        else :
+            if len(position) != 2 or (type(position[0]) is not int) or (type(position[1]) is not int):
+                raise NameError('Assurer vous que vous n\'avez pas plus de 2 coordonne [x,y] et qu\' il s\'agit de 2 entiers')
+
+        if type(vie) is not int:
+            raise NameError('Vie doit un nombre')
 
     """fonction verification si block est detruit ou pas """
     def isDead():
