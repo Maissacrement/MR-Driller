@@ -8,7 +8,7 @@ import sys # Afin de recuperer l'argument souhaitez
 # Local import
 from Objects.Block import * # Recuperer l'object Block
 from Functions.getRandomColor import * # Recuperer la function getRandomColor()
-from createGoodBlock import * # Recuperer la function createGoodBlock
+from Functions.createGoodBlock import * # Recuperer la function createGoodBlock
 
 if sys.argv[1] == "Block":
      monBlock = Block("red", [9,6])
