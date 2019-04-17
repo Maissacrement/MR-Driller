@@ -9,8 +9,8 @@ SPECIAL=['brown', 'white', 'crystal'] # Block au proprieté commune
     Renvoie aleatoirement une couleur
     selon un degree de proportionnalité.
     --------------------------------
-    @return: Object {
-        "value" : String,
+    @return: Dict {
+        "color" : String,
         "Special" : Bool
     }
 """
@@ -33,7 +33,7 @@ def getRandomColor():
         isSpecial = True
 
     return {
-        "value" : color,
+        "color" : color,
         "Special" : isSpecial
     }
 
