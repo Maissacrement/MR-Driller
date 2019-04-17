@@ -3,7 +3,7 @@
 ## Jeux
 
 
-News : <font color="red">Ajout d'un fichier Test.py permettant des tester rapidement un object ou une fonction. Afin de lancer un test suivre les indication enfin de chaques sous chapitre de documentation.</font>
+News :  `Ajout d'un fichier Test.py permettant des tester rapidement un object ou une fonction. Afin de lancer un test suivre les indication enfin de chaques sous chapitre de documentation.`
 
 ### 1. Creation des Blocks
 
