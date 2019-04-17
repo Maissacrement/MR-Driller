@@ -27,10 +27,12 @@ Into : Un block est un Object ayant une couleur, un nombre de vie, une position,
 test : `python3 Test.py Block`
 
 #### Methods
+```
   isDead : Si le block est vivant
   nearOf : Renvoie uniquement les coordonne des block aux alentours
-  -------- Remarque : un block ne peut avoir des coordonne où x < 0 ou x > n et y < 0 ou y > n
+           Remarque : un block ne peut avoir des coordonne où x < 0 ou x > n et y < 0 ou y > n
   Delete : Renvoie true si l'object a bien ete supprimer
+```
 
 ### 1.1. Creation de la fonction getRandomColor()
 
@@ -61,21 +63,25 @@ Intro: Il s'agit d'un tableau composé de Block
 
 ```
    Class ArrayBlock:
-    Propriete et Params: (n, m)
-      - blocks : Array<Block>
-          init [] de taille n x m
-    Methode:
-      function:
-        - isBlock() : Bool
-      procedure:
-        - addBlock([x,y])
-        - popBlock([x,y])
+      Propriete et Params: (n, m)
+        - blocks : Array<Block>
+            init [] de taille n x m
+      Methode:
+        function:
+          - isBlock() : Bool
+        procedure:
+          - addBlock([x,y])
+          - popBlock([x,y])
 ```
 
 #### Methods
+```
   isBlock : Si l'element recuperer est bien un block
-  addBlock([x,y]) : Ajouter un block au tableau selon sa position retourne True si l'operation est un succes
-  popBlock([x,y]) : Retire le block du tableau selon sa position retourne True si l'operation est un succes
+  addBlock([x,y]) :
+    -Ajouter un block au tableau selon sa position retourne True si l'operation est un succes
+  popBlock([x,y]) :
+    -Retire le block du tableau selon sa position retourne True si l'operation est un succes
+```
 
 # Constraint
 
