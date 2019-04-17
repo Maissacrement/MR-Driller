@@ -31,6 +31,8 @@ Intro: Cette fonction renvoie une couleur aleatoirement selon une certaine propo
   }
 ```
 
+test : `python3 getRandomColor.py`
+
 ### 1.2. Creation de la function createGoodBlock()
 
 Intro: En fonction de la couleur du block on cree un block avec des proprieté pouvant par example etre specifique
