@@ -1,16 +1,5 @@
 class Block():
 
-    def __init__(self):
-        self.title = "Title"
-
-    def getTitle(self):
-        return self.title
-
-
-print(Block().getTitle())
-
-class Block():
-
     """Propriete generale d'un Block."""
 
     def _init_(self,couleur,positionx,positiony):
