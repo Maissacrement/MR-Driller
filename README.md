@@ -64,7 +64,7 @@ Intro: Il s'agit d'un tableau composé de Block
 
 #### Methods
   isBlock : Si l'element recuperer est bien un block
-  addBlock : Ajouter un block au tableau 
+  addBlock : Ajouter un block au tableau
 
 # Constraint
 
@@ -133,3 +133,6 @@ Recupere les proprite d'un block classique une fois emporte par la gravite
 
 - `git fetch origin` : Recuperer le dossier distant
 - `git merge origin/master` : Fusionner les repertoire
+
+
+```
