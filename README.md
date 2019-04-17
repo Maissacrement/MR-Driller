@@ -25,7 +25,7 @@ Into : Un block est un Object ayant une couleur, un nombre de vie, une position,
 Intro: Cette fonction renvoie une couleur aleatoirement selon une certaine proportionalité
 
 ```
-  @return: Object {
+  @return: Dict {
       "value" : String,
       "Special" : Bool
   }
