@@ -2,11 +2,12 @@ class Block():
 
     """Propriete generale d'un Block."""
 
-    def __init__(self,couleur,position, vie=3):
+    def __init__(self,couleur,position, vie=1, merge=True):
         """Constante"""
         self.couleur = couleur
         self.position = position
         self.vie = int(vie)
+        self.merge = merge # Possibilité de fusionner avec un autre block
 
         """reject"""
         if type(couleur) is not str:

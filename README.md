@@ -2,6 +2,9 @@
 
 ## Jeux
 
+
+News : <span style="color:red">Ajout d'un fichier Test.py permettant des tester rapidement un object ou une fonction. Afin de lancer un test suivre les indication enfin de chaques sous chapitre de documentation. </span>
+
 ### 1. Creation des Blocks
 
 Into : Un block est un Object ayant une couleur, un nombre de vie, une position, une valeur reflettant sa capacité a pourvoir fusionner avec un autre block.
@@ -20,6 +23,8 @@ Into : Un block est un Object ayant une couleur, un nombre de vie, une position,
         - nearOf : Array<Int, Int>
 ```
 
+test : `python3 Test.py Block`
+
 #### Methods
   isDead : Si le block est vivant
   nearOf : Renvoie uniquement les coordonne des block aux alentours
@@ -36,7 +41,7 @@ Intro: Cette fonction renvoie une couleur aleatoirement selon une certaine propo
   }
 ```
 
-test : `python3 getRandomColor.py`
+test : `python3 Test.py getRandomColor`
 
 ### 1.2. Creation de la function createGoodBlock()
 
@@ -45,6 +50,8 @@ Intro: En fonction de la couleur du block on cree un block avec des proprieté p
 ```
   @return : Block()
 ```
+
+test : `python3 Test.py createGoodBlock`
 
 ## ArrayBlock
 

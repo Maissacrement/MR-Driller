@@ -34,7 +34,5 @@ def getRandomColor():
 
     return {
         "color" : color,
-        "Special" : isSpecial
+        "isSpecial" : isSpecial
     }
-
-print(getRandomColor())
