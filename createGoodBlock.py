@@ -19,7 +19,8 @@ from Block import *
     }
 """
 def createGoodBlock(Dict, position, vie=5, merge=True):
-    # Si il s'agit d'un block special nous gerons les different cas
+    # Si il s'agit d'un block special nous devrons gerer les different cas
+    # Avec des conditions
     if Dict.isSpecial:
         return Block(merge, Dict.color, vie, position)
 
