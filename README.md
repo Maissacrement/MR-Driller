@@ -1,67 +1,66 @@
-<<<<<<< HEAD
 # MR Driller : 1DEV
-=======
-m# MR Driller : 1DEV
-#modif read me
-#deuxieme modification
->>>>>>> 270103279165d419ecdd3b08aca5645bdb834484
-
-## HOW USE GIT
-
-### General command to use before do anything
-
-- `git add .` : afin d'ajouter a git toute nos modification
-- `git commit -m 'message'` : marquer par une note chaque modification
-
-#### Pousser un projet
-
-- `git push origin` : ajouter son code
-
-### OU
-
-### Recuperer les info sur la branch master
-
-- `git fetch origin` : Recuperer le dossier distant
-- `git merge origin/master` : Fusionner les repertoire
-
-## Requirement
-
-- `Create class Perso`
-- `Create class Block`
-- `Create an AssemblyBlock`
-- `Create class Fenetre`
-- `Create class Arme`
 
 ## Jeux
 
 ### 1. Creation des Blocks
 
+Into : Un block est un Object ayant une couleur, un nombre de vie, une position, une valeur reflettant sa capacité a pourvoir fusionner avec un autre block.
+
 ```
    Class Block:
-    Propriete:
+    Propriete && Parametre:
+      - merge : Bool
       - Couleur : String
       - Vie : Int
-      - Force : Int
       - Position : [x,y]
-    function:
+    Methode:
+      function:
       - isDead
       - nearOf
       - checkBlockColor
 ```
 
+### 1.1. Creation de la fonction getRandomColor()
+
+Intro: Cette fonction renvoie une couleur aleatoirement selon une certaine proportionalité
+
+```
+  @return: Object {
+      "value" : String,
+      "Special" : Bool
+  }
+```
+
+### 1.2. Creation de la function createGoodBlock()
+
+Intro: En fonction de la couleur du block on cree un block avec des proprieté pouvant par example etre specifique
+
+```
+  @return : Block()
+```
+
 ## Constraint
 
-- FR :
-```
-  1. Contrainte principal
-    Deplacement : si meme niveau gauche droite, sinon entraine vers le bas par la gravite
-    Block:
-    -si un block voisin d'autre block de la meme couleur est perce ceci son perce aussi, tous les autres block subissent la gravite
-     Les block qui sont emporté par la gravité fusionne avec les block adjacent si il sont de la meme couleur et son arreter dans leur chute
-     si 4 block fusionnent ils disparaissent
-    -Les Marrons : 5 coup pour disparaitre et doit etre perce un a un. Cependant il fusionne apres sa chute avec le proprite d'un block classique
-    -Les blancs: ils ne fusionnent pas avec les block de la meme couleur
-    -les crystaux : ils ont une courte duree de vie avant de disparaitre
+### Contrainte principal
+
+#### Blocks
+
+Into : `Les block qui sont emporté par la gravité fusionne avec les block adjacent si il sont de la meme couleur et sans arreter dans leur chute`
+
+-Qd un block est `detruit` ses voisin de m couleurs le sont aussi
+-si 4 block fusionnent ils `disparaissent`
+
+-Les Marrons : `5 coup` pour disparaitre et doit etre `perce un a un`.
+Recupere les proprite d'un block classique une fois emporte par la gravite
+
+-Les blancs: ils ne fusionnent pas avec les block de la meme couleur
+
+-les crystaux : ils ont une courte duree de vie avant de disparaitre
+
+#### Personnage
+
+    -Deplacement : si meme niveau gauche droite, sinon entraine vers le bas par la gravite
+
     Air:
     -Moins 1% air chaque seconde
     -Block Marrons : Moins 20% d'air d'un coup
@@ -90,11 +89,20 @@ m# MR Driller : 1DEV
 
 ```
 
-## Comment resoudre le problem
+## HELP HOW TO USE GIT
 
+### General command to use before do anything
 
+- `git add .` : afin d'ajouter a git toute nos modification
+- `git commit -m 'message'` : marquer par une note chaque modification
 
-## Class assumption
+#### Pousser un projet
 
-gravity
-score
+- `git push origin` : ajouter son code
+
+### OU
+
+### Recuperer les info sur la branch master
+
+- `git fetch origin` : Recuperer le dossier distant
+- `git merge origin/master` : Fusionner les repertoire
