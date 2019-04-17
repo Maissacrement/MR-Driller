@@ -8,17 +8,22 @@ Into : Un block est un Object ayant une couleur, un nombre de vie, une position,
 
 ```
    Class Block:
-    Propriete && Parametre:
-      - merge : Bool
-      - Couleur : String
-      - Vie : Int
-      - Position : [x,y]
-    Methode:
-      function:
-      - isDead
-      - nearOf
-      - checkBlockColor
+      Propriete && Parametre:
+        - merge : Bool
+        - Couleur : String
+        - Vie : Int
+        - Position : Array<Int,Int>
+            init [x,y]
+      Methode:
+        function:
+        - isDead : Bool
+        - nearOf : Array<Int, Int>
 ```
+
+#### Methods
+  isDead : Si le block est vivant
+  nearOf : Renvoie uniquement les coordonne des block aux alentours
+  -------- Remarque : un block ne peut avoir des coordonne où x < 0 ou x > n et y < 0 ou y > n
 
 ### 1.1. Creation de la fonction getRandomColor()
 
@@ -26,7 +31,7 @@ Intro: Cette fonction renvoie une couleur aleatoirement selon une certaine propo
 
 ```
   @return: Dict {
-      "value" : String,
+      "color" : String,
       "Special" : Bool
   }
 ```
@@ -41,7 +46,27 @@ Intro: En fonction de la couleur du block on cree un block avec des proprieté p
   @return : Block()
 ```
 
-## Constraint
+## ArrayBlock
+
+Intro: Il s'agit d'un tableau composé de Block
+
+```
+   Class ArrayBlock:
+    Propriete:
+      - blocks : Array<Block>
+          init []
+    Methode:
+      function:
+        - isBlock() : Bool
+      procedure:
+        - addBlock
+```
+
+#### Methods
+  isBlock : Si l'element recuperer est bien un block
+  addBlock : Ajouter un block au tableau 
+
+# Constraint
 
 ### Contrainte principal
 
