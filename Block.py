@@ -33,5 +33,5 @@ class Block():
         return boolvivant
 
     """fonction qui tcheck si il y a un block autour du block"""
-    """def nearOf(positionx,positiony):
-        print("positionx")"""
+    def nearOf(positionx,positiony):
+        print("positionx")
