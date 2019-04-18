@@ -25,12 +25,21 @@ class Block():
 
     """fonction verification si block est detruit ou pas """
     def isDead():
-        #bool qui
+        # vartiable bool qui renvoie si le block est vivaant ou mort
         estvivant = True
+
+        #vérification de la condition de mort
         if self.vie <= 0:
             estvivant = False
-        return boolvivant
+        return estvivant
 
     """fonction qui tcheck si il y a un block autour du block"""
     def nearOf(position):
         pass # Pas encore definie
+
+    """fonction qui detruit le l'Object block """
+    def __del__(self):
+        print("le block a ete detruit")
+
+var1= Block("alexandre",[1,2])
+var1.__del__
