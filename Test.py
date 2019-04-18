@@ -7,6 +7,7 @@
 import sys # Afin de recuperer l'argument souhaitez
 # Local import
 from Objects.Block import * # Recuperer l'object Block
+from Objects.ArrayBlock import * # Recuperer l'object Block
 from Functions.getRandomColor import * # Recuperer la function getRandomColor()
 from Functions.createGoodBlock import * # Recuperer la function createGoodBlock
 
@@ -26,6 +27,18 @@ if sys.argv[1] == "createGoodBlock":
     generate = getRandomColor()
     generateGoodBlock = createGoodBlock(generate, [1,1])
 
-    print('Basic on Blocks and args')
+    print('Welcom on createGoodBlock')
     print(generateGoodBlock)
     print(vars(generateGoodBlock))
+
+if sys.argv[1] == "ArrayBlock":
+    tab = ArrayBlock(8,8)
+
+
+    print('Welcom on ArrayBlock\n')
+    print(tab, '\n')
+
+    print('List of Blocks\n')
+    for i in range(len(tab.blocks)):
+        for j in range(len(tab.blocks[0])):
+            print(vars(tab.blocks[i][j]))
