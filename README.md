@@ -1,44 +1,110 @@
-m# MR Driller : 1DEV
+# MR Driller : 1DEV
 
-## HOW USE GIT
+## Jeux
 
-### General command to use before do anything
 
-- `git add .` : afin d'ajouter a git toute nos modification
-- `git commit -m 'message'` : marquer par une note chaque modification
+News :  `Ajout d'un fichier Test.py permettant des tester rapidement un object ou une fonction. Afin de lancer un test suivre les indication enfin de chaques sous chapitre de documentation.`
 
-#### Pousser un projet
+### 1. Creation des Blocks
 
-- `git push origin` : ajouter son code
+Into : Un block est un Object ayant une couleur, un nombre de vie, une position, une valeur reflettant sa capacité a pourvoir fusionner avec un autre block.
 
-### OU
-
-### Recuperer les info sur la branch master
-
-- `git fetch origin` : Recuperer le dossier distant
-- `git merge origin/master` : Fusionner les repertoire
-
-## Requirement
-
-- `Create class Perso`
-- `Create class Block`
-- `Create an AssemblyBlock`
-- `Create class Fenetre`
-- `Create class Arme`
-
-## Constraint
-
-- FR :
 ```
-  1. Contrainte principal
-    Deplacement : si meme niveau gauche droite, sinon entraine vers le bas par la gravite
-    Block:
-    -si un block voisin d'autre block de la meme couleur est perce ceci son perce aussi, tous les autres block subissent la gravite
-     Les block qui sont emporté par la gravité fusionne avec les block adjacent si il sont de la meme couleur et son arreter dans leur chute
-     si 4 block fusionnent ils disparaissent
-    -Les Marrons : 5 coup pour disparaitre et doit etre perce un a un. Cependant il fusionne apres sa chute avec le proprite d'un block classique
-    -Les blancs: ils ne fusionnent pas avec les block de la meme couleur
-    -les crystaux : ils ont une courte duree de vie avant de disparaitre
+   Class Block:
+      Propriete && Parametre:
+        - merge : Bool
+        - Couleur : String
+        - Vie : Int
+        - Position : Array<Int,Int>
+            init [x,y]
+      Methode:
+        function:
+        - isDead : Bool
+        - nearOf : Array<Int, Int>
+        - Delete : Bool
+```
+
+test : `python3 Test.py Block`
+
+#### Methods
+```
+  isDead : Si le block est vivant
+  nearOf : Renvoie uniquement les coordonne des block aux alentours
+           Remarque : un block ne peut avoir des coordonne où x < 0 ou x > n et y < 0 ou y > n
+  Delete : Renvoie true si l'object a bien ete supprimer
+```
+
+### 1.1. Creation de la fonction getRandomColor()
+
+Intro: Cette fonction renvoie une couleur aleatoirement selon une certaine proportionalité
+
+```
+  @return: Dict {
+      "color" : String,
+      "Special" : Bool
+  }
+```
+
+test : `python3 Test.py getRandomColor`
+
+### 1.2. Creation de la function createGoodBlock()
+
+Intro: En fonction de la couleur du block on cree un block avec des proprieté pouvant par example etre specifique
+
+```
+  @return : Block()
+```
+
+test : `python3 Test.py createGoodBlock`
+
+## ArrayBlock
+
+Intro: Il s'agit d'un tableau composé de Block
+
+```
+   Class ArrayBlock:
+      Propriete et Params: (n, m)
+        - blocks : Array<Block>
+            init [] de taille n x m
+      Methode:
+        function:
+          - isBlock() : Bool
+        procedure:
+          - addBlock([x,y])
+          - popBlock([x,y])
+```
+
+#### Methods
+```
+  isBlock : Si l'element recuperer est bien un block
+  addBlock([x,y]) :
+    -Ajouter un block au tableau selon sa position retourne True si l'operation est un succes
+  popBlock([x,y]) :
+    -Retire le block du tableau selon sa position retourne True si l'operation est un succes
+```
+
+# Constraint
+
+### Contrainte principal
+
+#### Blocks
+
+Into : `Les block qui sont emporté par la gravité fusionne avec les block adjacent si il sont de la meme couleur et sans arreter dans leur chute`
+
+-Qd un block est `detruit` ses voisin de m couleurs le sont aussi
+-si 4 block fusionnent ils `disparaissent`
+
+-Les Marrons : `5 coup` pour disparaitre et doit etre `perce un a un`.
+Recupere les proprite d'un block classique une fois emporte par la gravite
+
+-Les blancs: ils ne fusionnent pas avec les block de la meme couleur
+
+-les crystaux : ils ont une courte duree de vie avant de disparaitre
+
+#### Personnage
+
+    -Deplacement : si meme niveau gauche droite, sinon entraine vers le bas par la gravite
+
     Air:
     -Moins 1% air chaque seconde
     -Block Marrons : Moins 20% d'air d'un coup
@@ -67,11 +133,23 @@ m# MR Driller : 1DEV
 
 ```
 
-## Comment resoudre le problem
+## HELP HOW TO USE GIT
+
+### General command to use before do anything
+
+- `git add .` : afin d'ajouter a git toute nos modification
+- `git commit -m 'message'` : marquer par une note chaque modification
+
+#### Pousser un projet
+
+- `git push origin` : ajouter son code
+
+### OU
+
+### Recuperer les info sur la branch master
+
+- `git fetch origin` : Recuperer le dossier distant
+- `git merge origin/master` : Fusionner les repertoire
 
 
-
-## Class assumption
-
-gravity
-score
+```
