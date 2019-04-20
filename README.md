@@ -5,7 +5,15 @@
 
 News :  `Ajout d'un fichier Test.py permettant des tester rapidement un object ou une fonction. Afin de lancer un test suivre les indication enfin de chaques sous chapitre de documentation.`
 
-### 1. Creation des Blocks
+### A faire
+
+ArrayBlock les Blocks devront tomber:
+  - Object : Ajouter aussi des espaces blancs aux tableaux dans le jeux
+  - Stucture : mettre a jour la position des blocks
+
+
+
+### 1. Creation des Blocks ✔
 
 Into : Un block est un Object ayant une couleur, un nombre de vie, une position, une valeur reflettant sa capacité a pourvoir fusionner avec un autre block.
 
@@ -34,7 +42,7 @@ test : `python3 Test.py Block`
   Delete : Renvoie true si l'object a bien ete supprimer
 ```
 
-### 1.1. Creation de la fonction getRandomColor()
+### 1.1. Creation de la fonction getRandomColor() ✔
 
 Intro: Cette fonction renvoie une couleur aleatoirement selon une certaine proportionalité
 
@@ -47,7 +55,7 @@ Intro: Cette fonction renvoie une couleur aleatoirement selon une certaine propo
 
 test : `python3 Test.py getRandomColor`
 
-### 1.2. Creation de la function createGoodBlock()
+### 1.2. Creation de la function createGoodBlock() ✔
 
 Intro: En fonction de la couleur du block on cree un block avec des proprieté pouvant par example etre specifique
 
@@ -57,7 +65,7 @@ Intro: En fonction de la couleur du block on cree un block avec des proprieté p
 
 test : `python3 Test.py createGoodBlock`
 
-## ArrayBlock
+## ArrayBlock ✔
 
 Intro: Il s'agit d'un tableau composé de Block
 
@@ -68,19 +76,14 @@ Intro: Il s'agit d'un tableau composé de Block
             init [] de taille n x m
       Methode:
         function:
-          - isBlock() : Bool
-        procedure:
-          - addBlock([x,y])
-          - popBlock([x,y])
+          - getBlock([x,y])
 ```
+
+test : `python3 Test.py ArrayBlock`
 
 #### Methods
 ```
-  isBlock : Si l'element recuperer est bien un block
-  addBlock([x,y]) :
-    -Ajouter un block au tableau selon sa position retourne True si l'operation est un succes
-  popBlock([x,y]) :
-    -Retire le block du tableau selon sa position retourne True si l'operation est un succes
+  getBlock([x,y]): Retourne un blocks selon les coordonne d'un tableau [x,y]
 ```
 
 # Constraint
@@ -101,25 +104,25 @@ Recupere les proprite d'un block classique une fois emporte par la gravite
 
 -les crystaux : ils ont une courte duree de vie avant de disparaitre
 
+
 #### Personnage
 
-    -Deplacement : si meme niveau gauche droite, sinon entraine vers le bas par la gravite
+-Deplacement : `droite gauche`
+-Score : `Augmente a cheque Block fore, avec des capsule d'aire et en terminant un niveau`
+-Air : `Guain ou paire de ressource Air`
+        `Capsule : +20% air`
+-Vie : `Guain ou Perte`
+-Si l'alimentation en air tombe à zéro pour cent ou si le foreur est écrasé par un bloc qui tombe, le joueur perd une vie et redémarre à la même profondeur avec une alimentation en air complète.
+Game over:
+-Lorsque le joueur perd ses trois vies, la partie est terminée
 
-    Air:
-    -Moins 1% air chaque seconde
-    -Block Marrons : Moins 20% d'air d'un coup
-    -Capsule : +20% air
-    Score:
-    -Chaque bloc foré ou disparu après la fusion apporte des points. Le joueur augmente également son score de collecter des capsules d'air. Il a enfin un bonus  après avoir terminé un niveau.
-    Vie:
-    -Si l'alimentation en air tombe à zéro pour cent ou si le foreur est écrasé par un bloc qui tombe, le joueur perd une vie
-     et redémarre à la même profondeur avec une alimentation en air complète.
-    Game over:
-    -Lorsque le joueur perd ses trois vies, la partie est terminée
-    Win:
-    -Il gagne s'il atteint tous les niveaux.
+#### Fin de Jeux
 
-  2. Fonctionalité du jeu:
+Win:
+  -Il gagne s'il atteint tous les niveaux.
+
+
+## Fonctionalité du jeu:
     Level:
     -Le jeu comprend 10 level
     -la profondeur du jeu augmente au fur et a mesure que le niveau est eleve
@@ -130,23 +133,24 @@ Recupere les proprite d'un block classique une fois emporte par la gravite
     Pause:
     -Le joueur doit pouvoir suspendre une partie en cours
 
-
-```
+# Git
 
 ## HELP HOW TO USE GIT
 
-### General command to use before do anything
+```
+
+General command to use before do anything
 
 - `git add .` : afin d'ajouter a git toute nos modification
 - `git commit -m 'message'` : marquer par une note chaque modification
 
-#### Pousser un projet
+Pousser un projet
 
 - `git push origin` : ajouter son code
 
-### OU
+OU
 
-### Recuperer les info sur la branch master
+Recuperer les info sur la branch master
 
 - `git fetch origin` : Recuperer le dossier distant
 - `git merge origin/master` : Fusionner les repertoire
