@@ -27,3 +27,15 @@ class ArrayBlock():
         """reject"""
         #if type(blocks) is not list:
             #raise NameError('Position doit etre une list de forme [x,y]')
+
+    def getBlock(self, position):
+        """reject"""
+        if type(position) is not list:
+            raise NameError('Position doit etre une list de forme [x,y]')
+
+        else :
+            if len(position) != 2 or (type(position[0]) is not int) or (type(position[1]) is not int):
+                raise NameError('Assurer vous que vous n\'avez pas plus de 2 coordonne [x,y] et qu\' il s\'agit de 2 entiers')
+
+            else:
+                return self.blocks[position[0]][position[1]]

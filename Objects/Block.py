@@ -23,6 +23,9 @@ class Block():
         if type(vie) is not int:
             raise NameError('Vie doit un nombre')
 
+#    """fonction qui detruit le l'Object block """
+#    def __del__(self):
+#        print("le block a ete detruit")
     # Methods
 
     # Procedure
@@ -42,3 +45,10 @@ class Block():
         if self.vie <= 0:
             estvivant = False
         return estvivant
+
+    """fonction qui tcheck si il y a un block autour du block"""
+    def nearOf(position):
+
+#test de fonction
+#var1= Block("alexandre",[1,2])
+#var1.__del__"""
