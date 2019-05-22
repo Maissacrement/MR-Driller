@@ -18,6 +18,7 @@ from Objects.Block import * # Recuperer l'object Block
         Block
     }
 """
+
 def createGoodBlock(Dict, position, vie=1, merge=True):
     # Si il s'agit d'un block special nous devrons gerer les different cas
     # Avec des conditions
@@ -32,3 +33,8 @@ def createGoodBlock(Dict, position, vie=1, merge=True):
     #Sinon on garde les propriete general d'un block
     else:
         return Block(Dict['color'], position, vie)
+
+createGoodBlock({
+        "color" : "brown",
+        "isSpecial" : false
+    }, [0,0])
