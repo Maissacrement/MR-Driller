@@ -1,8 +1,8 @@
 from Objects.Block import * # Recuperer l'object Block
 
 """
-    Renvoie un Block SPECIAL si isSpecial est vrai
-    ou un block normal sinon
+    Genere selon les propriete placee en
+    parametre le bon bloc
     --------------------------------
     @params:
         Dict : getRandomColor() {
@@ -13,13 +13,14 @@ from Objects.Block import * # Recuperer l'object Block
             coordonne [x,y]
         Vie : Int
         merge : Bool
+        expire : int
     --------------------------------
     @return: Object {
         Block
     }
 """
 
-def createGoodBlock(Dict, position, vie=1, merge=True):
+def createGoodBlock(Dict, position, vie=1, merge=True, expire=5):
     # Si il s'agit d'un block special nous devrons gerer les different cas
     # Avec des conditions
     if Dict['isSpecial']:
@@ -28,13 +29,11 @@ def createGoodBlock(Dict, position, vie=1, merge=True):
         if Dict['color'] == "white":
             return Block(Dict['color'], position, vie, False) # Les blocks blancs ne peuvent pas fusionner entre eux
         if Dict['color'] == "crystal":
-            return Block(Dict['color'], position, vie) # Pas finie
+            return Block(Dict['color'], position, vie, True, expire) # Le bloc disparait au bout d'un certain temps
 
     #Sinon on garde les propriete general d'un block
     else:
         return Block(Dict['color'], position, vie)
 
-createGoodBlock({
-        "color" : "brown",
-        "isSpecial" : false
-    }, [0,0])
+# if Dict['color'] == 0:
+#    return 0 # add empty case

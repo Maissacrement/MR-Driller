@@ -1,0 +1,32 @@
+1 : Objects
+    a : Blocs
+    b : Personnage (bloc)
+    c : barre d’oxygène (personnage?)
+    d : Scène
+2 : Propriétés
+    a : Couleur des blocs
+    b : Spécialités des blocs
+    c : vitesse de la descente d’air
+    d : Drill (direction / position / input du joueur)
+    e : Déplacement du joueur
+    f : mort
+    g : win du joueur
+    h : gravité de la scène
+    i : Autres si vous y pensez, ou si vous en avez la nécessité
+3 : Scène de jeu
+    a : Tableau qui permet facilement d’être rempli et modifié
+4 : Personnage
+    a : Mouvement
+    b : Drill
+    c : oxygène
+    d : gravité
+5 : Logique du jeu
+    a : checks de positions
+    b : Evolution du perso dans le temps
+    c : Appel des propriétés des blocs en fonction de leur position (fusion / mix etc)
+    d : Avancement du jeu (Score / Perte de la partie / gagne / niveau)
+    f : Les états de tous les objets (pv / forme des blocs / temps restant des blocs etc… + Représentation à un instant T du jeu (lié à la pause))
+    g : L’appel de l’affichage
+6 : Ce qui est appelé pour l’affichage
+    a : la couleur la forme l’endroit
+    b : déplacement / animations

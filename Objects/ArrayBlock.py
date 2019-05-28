@@ -23,10 +23,8 @@ class ArrayBlock():
                 self.blocks[i].append(Block.createGoodBlock(random, [i, j]))
                 if(i == l):
                     self.blocks[i+1].append(Block.createGoodBlock(Color.getRandomColor(), [i, j]))
-                #index.blocks(nom de la sous-liste)
-        """reject"""
-        #if type(blocks) is not list:
-            #raise NameError('Position doit etre une list de forme [x,y]')
+
+        """End Init"""
 
     def getBlock(self, position):
         """reject"""
