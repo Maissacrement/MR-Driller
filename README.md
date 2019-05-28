@@ -7,9 +7,20 @@ News :  `Ajout d'un fichier Test.py permettant des tester rapidement un object o
 
 ### A faire
 
-ArrayBlock les Blocks devront tomber:
+```
+1. Completé Personnage :
+  - ajout de la fonction de drill
+  - ...
+2. Affichage cree un Base d'affichage espace blanc
+3. ArrayBlock complete le tableau avec les bonne proportionnalite:
   - Object : Ajouter aussi des espaces blancs aux tableaux dans le jeux
   - Stucture : mettre a jour la position des blocks
+  - Update : faire descandre les blocs qd il y a des espaces vide
+  - ...
+4. Utilisé l'affichage pour cree une scene separe en 2 partie
+   d'un cote le jeux et de l'autre les info relative a l'evolution du
+   joueur dans le jeux
+```
 
 ### 1. Base
 
@@ -81,7 +92,7 @@ Intro: En fonction de la couleur du block on cree un block avec des proprieté p
 
 test : `python3 Test.py createGoodBlock`
 
-## 3. Personnage
+## 3. Personnage ✔
 
 Intro: L'Object Personnage traduit les actions du joueur qui le possede.
 Le Personnage interagit directement avec les elements qui ont la meme base que lui.
@@ -102,7 +113,7 @@ Le Personnage interagit directement avec les elements qui ont la meme base que l
          - nearOf : Array<Int, Int>
 ```
 
-## 4. Capsule
+## 4. Capsule ✔
 
 Intro: Capsule est une classe heritant de base et pouvant donner de la vie a un Personnage
 
