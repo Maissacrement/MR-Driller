@@ -8,27 +8,54 @@ News :  `Ajout d'un fichier Test.py permettant des tester rapidement un object o
 ### A faire
 
 ```
-1. Completer Personnage :
+
+les "--" representent les propositions de changement
+
+2. Les blocs :
+    compareBlock(Blocs) : compare si ce Blocs peut etre Lie a celui en parametre et renvoie un Boolean
+    -- La fonction de fusion de blocs (comment representer la fusion, un block indepant ne connais pas la scene de jeux ?)
+    -- La fonction de chute de blocs 
+      (juste l'info qui lui dit "je peux tomber", donc seulement l'info SI il peut tomber,
+       non pas la chute en elle même, gérée par la scène)
+      1. Un block neut peux pas savoir ou il est dans le tableau, 
+        sachant qu'il est independant du tableau, possibilité de deplace vers arrayBlock
+    (Les blocks ont tous les memes propiete peut importe leur couleur seul la valeur de la propieté change)
+    ou
+    (On cree des class pour tous les differents block que l'on range dans un dossier sousBlocks)
+    - Les différents blocs de couleurs / propriétés différentes
+    - les blocs de crystal (décrits dans le sujet)
+    - Les blocs blancs
+    - Les blocs marrons
+2.3 delBlock:
+    - Faire une fonction "destruction de blocs"
+2.4 generateRandomBlock()
+    - Cette procedure de genere aleatoirement des Block
+3. Completer Personnage :
     - ajout de la fonction de drill
     - fonction mouvements (Avec les spécificités)
     - objet à part =/= d'un bloc
-2. Random proportionalité et block:
-    - Object : Ajouter aussi des espaces blancs aux tableaux dans le jeu
-    - Faire une fonction "destruction de blocs"
-3. ArrayBlock complete le tableau avec les bonne proportionnalite:
+5. ArrayBlock complete le tableau avec les bonne proportionnalite:
     - faire en sorte que la difficulté puisse etre changée en fonction de l'avancée dans le jeu (le niveau)
-    - Update : faire descandre les blocs qd il y a des espaces vide (en gros gravité, besoin d'un check si un espace vide est en dessous d'un bloc)
-4 . Affichage: 
+    - Update : faire descandre les blocs qd il y a des espaces vide 
+      (en gros gravité, besoin d'un check si un espace vide est en dessous d'un bloc)
+    - Chute : En fonction de coordonné dire si un block peut descendre ou non
+    - Lie : Renvoie true si un block peut etre lie a un autre
+    - getBlockLie : Retourne un tableau de block selon le block passer en parametre
+    - addBlockLie : Ajoute au tableau de block lie une liste de block
+                    relie selon lie et compareBlock dans Block
+    - popBlockLie : qui suprime tous les block lie du tableau
+6 . Fenetre: 
+    - Il s'agit uniquement d'une page blanche mere du menu et de la scene de jeu
     - Simple affichage vide pygame page blanche
-    - Fonction qui relie les infos prises dans la scène de jeu pour y appliquer des sprites (faire en sortes qui si 
-    cette fonction voit qu'il y a un bloc rouge en [x,y] elle affiche un bloc rouge à cet endroit)
-5. Scene:
+7. Scene:
     - Separée en 2 partie sur un ecran scindé "jeu" et "information relative au jeu" (score,
       air restant, vie restantes, niveau actuel, option pause?)
-    - Utilliser affichage pour créer la scène grapgiquement
-    - Methode permettant de generer graphiquement un scene en fonction d'un tableau (idem qu'au dessus non?)
+    - Utilliser affichage pour créer la scène grapgiquement (init de la page blanche)
+    - Methode permettant de generer graphiquement un scene en fonction d'un tableau (idem qu'au dessus non?) + 
+      qui relie les infos prises dans la scène de jeu pour y appliquer des sprites (faire en sortes qui si cette 
+      fonction voit qu'il y a un bloc rouge en [x,y] elle affiche un bloc rouge à cet endroit)
     - affiche l'etat de la scene, donc un tableau qui traduit les positions / les couleurs / etc... ce qu'il se passe dans le jeu en gros.
-5. Stucture : 
+8. Stucture : 
     - Init un tableau de block random, dont la proportionnalité peut être changée facilement en fonction du level.
     - Faire des fonctions pour chaque règle de jeu : 
         -La fusion des blocs quand 3 ou plus
@@ -38,13 +65,6 @@ News :  `Ajout d'un fichier Test.py permettant des tester rapidement un object o
         -Le game over quand plus de vie
         -la Mort quand écrasé par un bloc
         -La Pause!
-6. Les blocs :
-    - Les différents blocs de couleurs / propriétés différentes
-    - La fonction de fusion de blocs
-    - La fonction de chute de blocs (juste l'info qui lui dit "je peux tomber", donc seulement l'info SI il peut tomber, non pas la chute en elle même, gérée par la scène)
-    - les blocs de crystal (décrits dans le sujet)
-    - Les blocs blancs
-    - Les blocs marrons
 ```
 
 ### 1. Base
@@ -77,22 +97,22 @@ Into : Un block est un Object ayant une couleur, un nombre de vie, une position,
           - Vie : Int
           - Position : Array<Int,Int>
               init [x,y]
-      Methode:
-        function:
-        - isDead : Bool
-        - nearOf : Array<Int, Int>
-        - Delete : Bool
+      Methods:
+        Function:
+          - compareBlock(Blocs) : Bool
+          - isDead : Bool
+          - nearOf : Array<Int, Int>
+          - Delete : Bool
+
+      Détail methods:
+        compareBlock : compare si ce Blocs peut etre Lie a selui en parametre et renvoie un Boolean
+        isDead : Si le bloc est vivant
+        nearOf : Renvoie uniquement les coordonnées des blocs aux alentours
+                Remarque : un block ne peut avoir des coordonnées où x < 0 ou x > n et y < 0 ou y > n
+        Delete : Renvoie true si l'object a bien été supprimé
 ```
 
 test : `python3 Test.py Block`
-
-#### Methods
-```
-  isDead : Si le bloc est vivant
-  nearOf : Renvoie uniquement les coordonnées des blocs aux alentours
-           Remarque : un block ne peut avoir des coordonnées où x < 0 ou x > n et y < 0 ou y > n
-  Delete : Renvoie true si l'object a bien été supprimé
-```
 
 ### 2.1. Creation de la fonction getRandomColor() ✔
 
@@ -117,6 +137,14 @@ Intro: En fonction de la couleur du block on cree un block avec des proprieté p
 
 test : `python3 Test.py createGoodBlock`
 
+### 2.3. Creation de la procedure delBlock()
+
+Intro: Cette procedure supprime un block passer en parametre
+
+### 2.4. Creation de la procedure de generateRandomBlock()
+
+Intro: Cette procedure de genere aleatoirement des Block
+
 ## 3. Personnage ✔
 
 Intro: L'Object Personnage traduit les actions du joueur qui le possede.
@@ -132,10 +160,17 @@ Le Personnage interagit directement avec les elements qui ont la meme base que l
          - Vie : Int
          - Position : Array<Int,Int> as [x, y]
      Methode:
-       function:
-         - getBlock([x,y])
-         - isDead : Bool
-         - nearOf : Array<Int, Int>
+       Procedure:
+         - drill(Block)
+         - mouvement
+
+     Détail methods:
+        drill : Supprimer un block
+        mouvement :
+        isDead : Si le bloc est vivant
+        nearOf : Renvoie uniquement les coordonnées des blocs aux alentours
+                Remarque : un block ne peut avoir des coordonnées où x < 0 ou x > n et y < 0 ou y > n
+        Delete : Renvoie true si l'object a bien été supprimé
 ```
 
 ## 4. Capsule ✔
@@ -157,23 +192,77 @@ Intro: Capsule est une classe heritant de base et pouvant donner de la vie a un 
          - earnLife
 ```
 
-## 5. ArrayBlock ✔
+## 5. ArrayBlock 
 
 Intro: Il s'agit d'un tableau composé de Block
 
 ```
    Class ArrayBlock:
       Propriete et Params: (n, m)
-        - blocks : Array<Block>
-            init [] de taille n x m
+        - blocks : Array<Block> as taille n x m
+        - blocksLie : Array<> as []
       Methode:
-        function:
-          - getBlock([x,y])
+        Function:
+          - chute : Boolean
+          - Lie : Boolean
+        Procedure:
+          - Update
+          - getBlockLie(Block)
+          - popBlockLie(ArrayofBlock)
+          - addBlockLie(Block)
+
+      Détail methods:
+        chute : Boolean representant la posibilité pour un block de descendre ou non
+        Lie : Renvoie true si un block peut etre lie a un autre
+        getBlockLie : Retourne un tableau de block selon le block passer en parametre
+        Update : faire descandre les blocs qd il y a des espaces vide
+        popBlockLie : qui suprime tous les block lie du tableau
+        addBlockLie : Ajoute au tableau de block lie une liste de block
+                      relie selon lie et compareBlock dans Block
 ```
 
 test : `python3 Test.py ArrayBlock`
 
-#### Methods
+## 6. Fenetre
+
+Intro: Il s'agit d'une page blanche mère du menu et de la scene de jeu
+
 ```
-  getBlock([x,y]): Retourne un blocks selon les coordonne d'un tableau [x,y]
+    Class Fenetre:
+      Propriete et Params: (surface, pygame)
+        - surface : Tuple(int, int) taille Longueur x Largeur en pixel
+        - pygame : add pygame as property
+      Methode:
+        Procedure :
+          - config(name) : init pygame
+            - name : String
+          - exit : fermee le jeux
+        
+      Détail methods:
+        config : initialise une fenetre pygame
+        exit : permet de gere la sortie
 ```
+
+## 7. Scene
+
+Intro: Il s'agit d'une scene de jeux graphique
+
+```
+    Class Scene(Affichage):
+      Propriete et Params: (surface, pygame, Personnage)
+        - Personnage : Blocks
+        - Heritage Affichage:
+          - surface : Tuple(int, int) taille Longueur x Largeur en pixel
+          - pygame : add pygame as property
+          
+      Methode:
+        Procedure :
+          - init(Array)
+
+      Détail methods:
+        init : initialisée la scene de jeux graphique en fonction d'un tableau
+        config : initialise une fenetre pygame
+        exit : permet de gere la sortie
+```
+
+## 8. main.py
