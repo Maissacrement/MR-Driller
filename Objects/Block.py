@@ -18,9 +18,5 @@ class Block(Base):
         if type(merge) is not bool:
             raise NameError('Merge est la capacicté d\'un block a fusionner avec un autre \nLa valeur doit etre un boolean')
 
-    def kill(self):
-        time.sleep(5)
-        del Block
-
     def __del__(self):
         print("deleted")

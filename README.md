@@ -11,15 +11,25 @@ News :  `Ajout d'un fichier Test.py permettant des tester rapidement un object o
 1. Completé Personnage :
   - ajout de la fonction de drill
   - ...
-2. Affichage cree un Base d'affichage espace blanc
+2. Random proportionalité et block:
+    - Object : Ajouter aussi des espaces blancs aux tableaux dans le jeux
 3. ArrayBlock complete le tableau avec les bonne proportionnalite:
-  - Object : Ajouter aussi des espaces blancs aux tableaux dans le jeux
-  - Stucture : mettre a jour la position des blocks
+  - faire en sorte que la difficulté puisse etre change en fonction de l'avance dans le jeux
   - Update : faire descandre les blocs qd il y a des espaces vide
-  - ...
-4. Utilisé l'affichage pour cree une scene separe en 2 partie
-   d'un cote le jeux et de l'autre les info relative a l'evolution du
-   joueur dans le jeux
+  - kill : la method permettra de supprimer un block 
+4 . Affichage: 
+      - Simple affichage vide pygame page blanche
+5. Scene:
+    - Separe en 2 partie sur un ecran scinde jeux et information relative aux jeux (score,
+      taux d'aire, ...)
+    - Utilliser affichage pour cree la scene
+    - Methode permettant de generer graphiquement un scene en fonction d'un tableau
+    - affiche l'etat de la scene
+5. Stucture : 
+    - Init un tableau de block random
+    - Init la scene de jeux
+    - Insere le tableaux dans la scene de jeux
+    - mettre a jour la position des blocks
 ```
 
 ### 1. Base
