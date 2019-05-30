@@ -8,28 +8,43 @@ News :  `Ajout d'un fichier Test.py permettant des tester rapidement un object o
 ### A faire
 
 ```
-1. Completé Personnage :
-  - ajout de la fonction de drill
-  - ...
+1. Completer Personnage :
+    - ajout de la fonction de drill
+    - fonction mouvements (Avec les spécificités)
+    - objet à part =/= d'un bloc
 2. Random proportionalité et block:
-    - Object : Ajouter aussi des espaces blancs aux tableaux dans le jeux
+    - Object : Ajouter aussi des espaces blancs aux tableaux dans le jeu
+    - Faire une fonction "destruction de blocs"
 3. ArrayBlock complete le tableau avec les bonne proportionnalite:
-  - faire en sorte que la difficulté puisse etre change en fonction de l'avance dans le jeux
-  - Update : faire descandre les blocs qd il y a des espaces vide
-  - kill : la method permettra de supprimer un block 
+    - faire en sorte que la difficulté puisse etre changée en fonction de l'avancée dans le jeu (le niveau)
+    - Update : faire descandre les blocs qd il y a des espaces vide (en gros gravité, besoin d'un check si un espace vide est en dessous d'un bloc)
 4 . Affichage: 
-      - Simple affichage vide pygame page blanche
+    - Simple affichage vide pygame page blanche
+    - Fonction qui relie les infos prises dans la scène de jeu pour y appliquer des sprites (faire en sortes qui si 
+    cette fonction voit qu'il y a un bloc rouge en [x,y] elle affiche un bloc rouge à cet endroit)
 5. Scene:
-    - Separe en 2 partie sur un ecran scinde jeux et information relative aux jeux (score,
-      taux d'aire, ...)
-    - Utilliser affichage pour cree la scene
-    - Methode permettant de generer graphiquement un scene en fonction d'un tableau
-    - affiche l'etat de la scene
+    - Separée en 2 partie sur un ecran scindé "jeu" et "information relative au jeu" (score,
+      air restant, vie restantes, niveau actuel, option pause?)
+    - Utilliser affichage pour créer la scène grapgiquement
+    - Methode permettant de generer graphiquement un scene en fonction d'un tableau (idem qu'au dessus non?)
+    - affiche l'etat de la scene, donc un tableau qui traduit les positions / les couleurs / etc... ce qu'il se passe dans le jeu en gros.
 5. Stucture : 
-    - Init un tableau de block random
-    - Init la scene de jeux
-    - Insere le tableaux dans la scene de jeux
-    - mettre a jour la position des blocks
+    - Init un tableau de block random, dont la proportionnalité peut être changée facilement en fonction du level.
+    - Faire des fonctions pour chaque règle de jeu : 
+        -La fusion des blocs quand 3 ou plus
+        -la destruction des blocs quand 3 ou plus
+        -La chute des blocs
+        -La mort quand plus d'air
+        -Le game over quand plus de vie
+        -la Mort quand écrasé par un bloc
+        -La Pause!
+6. Les blocs :
+    - Les différents blocs de couleurs / propriétés différentes
+    - La fonction de fusion de blocs
+    - La fonction de chute de blocs (juste l'info qui lui dit "je peux tomber", donc seulement l'info SI il peut tomber, non pas la chute en elle même, gérée par la scène)
+    - les blocs de crystal (décrits dans le sujet)
+    - Les blocs blancs
+    - Les blocs marrons
 ```
 
 ### 1. Base
@@ -73,10 +88,10 @@ test : `python3 Test.py Block`
 
 #### Methods
 ```
-  isDead : Si le block est vivant
-  nearOf : Renvoie uniquement les coordonne des block aux alentours
-           Remarque : un block ne peut avoir des coordonne où x < 0 ou x > n et y < 0 ou y > n
-  Delete : Renvoie true si l'object a bien ete supprimer
+  isDead : Si le bloc est vivant
+  nearOf : Renvoie uniquement les coordonnées des blocs aux alentours
+           Remarque : un block ne peut avoir des coordonnées où x < 0 ou x > n et y < 0 ou y > n
+  Delete : Renvoie true si l'object a bien été supprimé
 ```
 
 ### 2.1. Creation de la fonction getRandomColor() ✔
