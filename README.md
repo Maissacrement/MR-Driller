@@ -11,7 +11,7 @@ News :  `Ajout d'un fichier Test.py permettant des tester rapidement un object o
 
 les "--" representent les propositions de changement
 
-2. Les blocs :
+2. Les blocs : ✔
     compareBlock(Blocs) : compare si ce Blocs peut etre Lie a celui en parametre et renvoie un Boolean
     -- La fonction de fusion de blocs (comment representer la fusion, un block indepant ne connais pas la scene de jeux ?)
     -- La fonction de chute de blocs
@@ -26,7 +26,7 @@ les "--" representent les propositions de changement
     - les blocs de crystal (décrits dans le sujet)
     - Les blocs blancs
     - Les blocs marrons
-2.3 delBlock:
+2.3 delBlock: ✔
     - Faire une fonction "destruction de blocs"
 2.4 generateRandomBlock()
     - Cette procedure de genere aleatoirement des Block

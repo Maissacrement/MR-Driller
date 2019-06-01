@@ -32,13 +32,6 @@ if sys.argv[1] == "Capsule":
      print(maCapsule)
      print(vars(maCapsule))
 
-if sys.argv[1] == "Capsule":
-     maCapsule = Capsule([0,1])
-
-     print('Create capsule Capsule')
-     print(maCapsule)
-     print(vars(maCapsule))
-
 if sys.argv[1] == "Personnage":
      monPerso = Personnage("perso0",[0,1], "")
 
@@ -51,12 +44,13 @@ if sys.argv[1] == "ArrayBlock":
 
 
     print('Welcom on ArrayBlock\n')
-    print(tab, '\n')
 
     print('List of Blocks\n')
     for i in range(len(tab.blocks)):
         for j in range(len(tab.blocks[0])):
             print(vars(tab.blocks[i][j]))
+
+    print('\n', tab.blocks)
 
 # Functions
 
