@@ -14,10 +14,10 @@ les "--" representent les propositions de changement
 2. Les blocs :
     compareBlock(Blocs) : compare si ce Blocs peut etre Lie a celui en parametre et renvoie un Boolean
     -- La fonction de fusion de blocs (comment representer la fusion, un block indepant ne connais pas la scene de jeux ?)
-    -- La fonction de chute de blocs 
+    -- La fonction de chute de blocs
       (juste l'info qui lui dit "je peux tomber", donc seulement l'info SI il peut tomber,
        non pas la chute en elle même, gérée par la scène)
-      1. Un block neut peux pas savoir ou il est dans le tableau, 
+      1. Un block neut peux pas savoir ou il est dans le tableau,
         sachant qu'il est independant du tableau, possibilité de deplace vers arrayBlock
     (Les blocks ont tous les memes propiete peut importe leur couleur seul la valeur de la propieté change)
     ou
@@ -36,7 +36,7 @@ les "--" representent les propositions de changement
     - objet à part =/= d'un bloc
 5. ArrayBlock complete le tableau avec les bonne proportionnalite:
     - faire en sorte que la difficulté puisse etre changée en fonction de l'avancée dans le jeu (le niveau)
-    - Update : faire descandre les blocs qd il y a des espaces vide 
+    - Update : faire descandre les blocs qd il y a des espaces vide
       (en gros gravité, besoin d'un check si un espace vide est en dessous d'un bloc)
     - Chute : En fonction de coordonné dire si un block peut descendre ou non
     - Lie : Renvoie true si un block peut etre lie a un autre
@@ -44,20 +44,20 @@ les "--" representent les propositions de changement
     - addBlockLie : Ajoute au tableau de block lie une liste de block
                     relie selon lie et compareBlock dans Block
     - popBlockLie : qui suprime tous les block lie du tableau
-6 . Fenetre: 
+6 . Fenetre:
     - Il s'agit uniquement d'une page blanche mere du menu et de la scene de jeu
     - Simple affichage vide pygame page blanche
 7. Scene:
     - Separée en 2 partie sur un ecran scindé "jeu" et "information relative au jeu" (score,
       air restant, vie restantes, niveau actuel, option pause?)
     - Utilliser affichage pour créer la scène grapgiquement (init de la page blanche)
-    - Methode permettant de generer graphiquement un scene en fonction d'un tableau (idem qu'au dessus non?) + 
-      qui relie les infos prises dans la scène de jeu pour y appliquer des sprites (faire en sortes qui si cette 
+    - Methode permettant de generer graphiquement un scene en fonction d'un tableau (idem qu'au dessus non?) +
+      qui relie les infos prises dans la scène de jeu pour y appliquer des sprites (faire en sortes qui si cette
       fonction voit qu'il y a un bloc rouge en [x,y] elle affiche un bloc rouge à cet endroit)
     - affiche l'etat de la scene, donc un tableau qui traduit les positions / les couleurs / etc... ce qu'il se passe dans le jeu en gros.
-8. Stucture : 
+8. Stucture :
     - Init un tableau de block random, dont la proportionnalité peut être changée facilement en fonction du level.
-    - Faire des fonctions pour chaque règle de jeu : 
+    - Faire des fonctions pour chaque règle de jeu :
         -La fusion des blocs quand 3 ou plus
         -la destruction des blocs quand 3 ou plus
         -La chute des blocs
@@ -100,12 +100,19 @@ Into : Un block est un Object ayant une couleur, un nombre de vie, une position,
       Methods:
         Function:
           - compareBlock(Blocs) : Bool
+          - sideOf :Bool
+          - sideOfMe : Bool
           - isDead : Bool
           - nearOf : Array<Int, Int>
           - Delete : Bool
 
       Détail methods:
-        compareBlock : compare si ce Blocs peut etre Lie a selui en parametre et renvoie un Boolean
+        compareBlock : compare si ce Blocs peut etre Lie a selui
+                       en parametre et renvoie un Boolean
+        sideOf : permet de savoir si le block passer en parametre
+                 est a cote du Block courant
+        sideOfMe : retourne les position disponible aux
+                   alentour du Block courant
         isDead : Si le bloc est vivant
         nearOf : Renvoie uniquement les coordonnées des blocs aux alentours
                 Remarque : un block ne peut avoir des coordonnées où x < 0 ou x > n et y < 0 ou y > n
@@ -192,7 +199,7 @@ Intro: Capsule est une classe heritant de base et pouvant donner de la vie a un 
          - earnLife
 ```
 
-## 5. ArrayBlock 
+## 5. ArrayBlock
 
 Intro: Il s'agit d'un tableau composé de Block
 
@@ -237,7 +244,7 @@ Intro: Il s'agit d'une page blanche mère du menu et de la scene de jeu
           - config(name) : init pygame
             - name : String
           - exit : fermee le jeux
-        
+
       Détail methods:
         config : initialise une fenetre pygame
         exit : permet de gere la sortie
@@ -254,7 +261,7 @@ Intro: Il s'agit d'une scene de jeux graphique
         - Heritage Affichage:
           - surface : Tuple(int, int) taille Longueur x Largeur en pixel
           - pygame : add pygame as property
-          
+
       Methode:
         Procedure :
           - init(Array)

@@ -19,7 +19,6 @@ from Objects.Block import * # Recuperer l'object Block
         Block
     }
 """
-
 def createGoodBlock(Dict, position, vie=1, merge=True, expire=5):
     # Si il s'agit d'un block special nous devrons gerer les different cas
     # Avec des conditions
