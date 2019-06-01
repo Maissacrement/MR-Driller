@@ -5,11 +5,10 @@ RED = (255,0,0)
 BLACK = (0,0,0)
 BLUE = (0,0,255)
 
-class Scene(Fenetre):
+class Menu(Fenetre):
 
-    def __init__(self, mySurface, title, Player):
+    def __init__(self, mySurface, title):
         Fenetre.__init__(self, mySurface, title)
-        self.Player = Player
 
-    def draw(self):
+    def started(self):
         pass

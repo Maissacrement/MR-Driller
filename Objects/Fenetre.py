@@ -6,12 +6,11 @@ WHITE = (255,255,255)
 
 class Fenetre():
 
-    def __init__(self, mySurface, title, Player):
+    def __init__(self, mySurface, title):
         # Constante
         self.mySurface = mySurface
         self.title = title
         self.pygame = pygame
-        self.Player = Player
 
     # SET
     def setMySurface(self, newSize):
@@ -29,8 +28,8 @@ class Fenetre():
         self.screen.fill(WHITE)
 
         # Init
-        self.pygame.font.init()
-        font = self.pygame.font.SysFont("comicsansms", 32)
+        # self.pygame.font.init()
+        # font = self.pygame.font.SysFont("comicsansms", 32)
 
     def exit(self):
         self.pygame.quit()

@@ -48,6 +48,7 @@ les "--" representent les propositions de changement
     - Il s'agit uniquement d'une page blanche mere du menu et de la scene de jeu
     - Simple affichage vide pygame page blanche
 7. Scene:
+  Affichage provenant de fenetre
     - Separée en 2 partie sur un ecran scindé "jeu" et "information relative au jeu" (score,
       air restant, vie restantes, niveau actuel, option pause?)
     - Utilliser affichage pour créer la scène grapgiquement (init de la page blanche)
@@ -55,7 +56,9 @@ les "--" representent les propositions de changement
       qui relie les infos prises dans la scène de jeu pour y appliquer des sprites (faire en sortes qui si cette
       fonction voit qu'il y a un bloc rouge en [x,y] elle affiche un bloc rouge à cet endroit)
     - affiche l'etat de la scene, donc un tableau qui traduit les positions / les couleurs / etc... ce qu'il se passe dans le jeu en gros.
-8. Stucture :
+8. Menu:
+  Affichage provenant de fenetre
+9. Stucture :
     - Init un tableau de block random, dont la proportionnalité peut être changée facilement en fonction du level.
     - Faire des fonctions pour chaque règle de jeu :
         -La fusion des blocs quand 3 ou plus
@@ -236,7 +239,7 @@ Intro: Il s'agit d'une page blanche mère du menu et de la scene de jeu
 
 ```
     Class Fenetre:
-      Propriete et Params: (surface, pygame)
+      Propriete: Params(surface, pygame)
         - surface : Tuple(int, int) taille Longueur x Largeur en pixel
         - pygame : add pygame as property
       Methode:
@@ -256,7 +259,7 @@ Intro: Il s'agit d'une scene de jeux graphique
 
 ```
     Class Scene(Affichage):
-      Propriete et Params: (surface, pygame, Personnage)
+      Propriete: Params(surface, pygame, Personnage)
         - Personnage : Blocks
         - Heritage Affichage:
           - surface : Tuple(int, int) taille Longueur x Largeur en pixel
@@ -272,4 +275,23 @@ Intro: Il s'agit d'une scene de jeux graphique
         exit : permet de gere la sortie
 ```
 
-## 8. main.py
+## 8. menu
+
+Intro: Il s'agit du menu
+
+```
+    Class Menu(Affichage):
+      Propriete: Params(surface, pygame)
+        - Heritage Affichage:
+          - surface : Tuple(int, int) taille Longueur x Largeur en pixel
+          - pygame : add pygame as property
+
+      Methode:
+
+      Détail methods:
+        config : initialise une fenetre pygame
+        exit : permet de gere la sortie
+```
+
+
+## 9. main.py
