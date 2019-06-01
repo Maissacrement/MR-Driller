@@ -11,6 +11,7 @@ class Fenetre():
         self.mySurface = mySurface
         self.title = title
         self.pygame = pygame
+        self.screen = None
 
     # SET
     def setMySurface(self, newSize):

@@ -11,8 +11,7 @@ from Objects.Block import * # Recuperer l'object Block
 from Objects.Capsule import * # Recuperer l'object Capsule
 from Objects.Personnage import * # Recuperer l'object Personnage
 from Objects.ArrayBlock import * # Recuperer l'object Block
-from Objects.Scene import * # Recuperer la scene
-from Objects.Menu import * # Recuperer la scene
+from Objects.Menu import * # Recuperer le Menu
 ## Function
 from Functions.getRandomColor import * # Recuperer la function getRandomColor()
 from Functions.createGoodBlock import * # Recuperer la function createGoodBlock
@@ -69,14 +68,22 @@ if sys.argv[1] == "createGoodBlock":
     print(generateGoodBlock)
     print(vars(generateGoodBlock))
 
-if sys.argv[1] == "Scene":
-    print('Welcom in Scene Test')
-
-    jeux = Scene((1000,500),"kenedi","p1")
-    jeux.config()
-
 if sys.argv[1] == "Menu":
-    print('Welcom in Scene Test')
+    print('Welcom in Menu Test')
+    inProgress = True
 
-    jeux = Menu((1000,500),"kenedi")
+    jeux = Menu((1000,500),"kenedi","p1")
     jeux.config()
+    jeux.game([4,3])
+
+    while inProgress:
+
+        # Quit event
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                inProgress = False
+
+        # Maj
+        pygame.display.update()
+
+    pygame.quit()

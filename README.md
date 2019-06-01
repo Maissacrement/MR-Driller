@@ -253,45 +253,30 @@ Intro: Il s'agit d'une page blanche mère du menu et de la scene de jeu
         exit : permet de gere la sortie
 ```
 
-## 7. Scene
-
-Intro: Il s'agit d'une scene de jeux graphique
-
-```
-    Class Scene(Affichage):
-      Propriete: Params(surface, pygame, Personnage)
-        - Personnage : Blocks
-        - Heritage Affichage:
-          - surface : Tuple(int, int) taille Longueur x Largeur en pixel
-          - pygame : add pygame as property
-
-      Methode:
-        Procedure :
-          - init(Array)
-
-      Détail methods:
-        init : initialisée la scene de jeux graphique en fonction d'un tableau
-        config : initialise une fenetre pygame
-        exit : permet de gere la sortie
-```
-
-## 8. menu
+## 7. Menu
 
 Intro: Il s'agit du menu
 
 ```
     Class Menu(Affichage):
-      Propriete: Params(surface, pygame)
-        - Heritage Affichage:
+      Propriete: Params(surface, pygame, Personnage)
+        - Personnage : Blocks
           - surface : Tuple(int, int) taille Longueur x Largeur en pixel
           - pygame : add pygame as property
 
       Methode:
+        Procedure:
+          - controller
+          - started
+          - game(Array)
 
       Détail methods:
+        controller : assure la redirection entre le jeux et menu
+        game : initialisée la scene de jeux graphique en fonction d'un tableau
+        started: afficher le menu
         config : initialise une fenetre pygame
         exit : permet de gere la sortie
 ```
 
 
-## 9. main.py
+## 8. main.py
