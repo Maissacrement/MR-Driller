@@ -11,6 +11,7 @@ from Objects.Block import * # Recuperer l'object Block
 from Objects.Capsule import * # Recuperer l'object Capsule
 from Objects.Personnage import * # Recuperer l'object Personnage
 from Objects.ArrayBlock import * # Recuperer l'object Block
+from Objects.Scene import * # Recuperer la scene
 ## Function
 from Functions.getRandomColor import * # Recuperer la function getRandomColor()
 from Functions.createGoodBlock import * # Recuperer la function createGoodBlock
@@ -66,3 +67,9 @@ if sys.argv[1] == "createGoodBlock":
     print('Welcom on createGoodBlock')
     print(generateGoodBlock)
     print(vars(generateGoodBlock))
+
+if sys.argv[1] == "Scene":
+    print('Welcom in Scene Test')
+
+    jeux = Scene((1000,500),"kenedi","p1")
+    jeux.config()
