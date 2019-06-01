@@ -72,9 +72,11 @@ if sys.argv[1] == "Menu":
     print('Welcom in Menu Test')
     inProgress = True
 
-    jeux = Menu((1000,500),"kenedi","p1")
+    jeux = Menu((1000,500),"Mr driller","p1")
     jeux.config()
-    jeux.game([4,3])
+    # jeux.game([4,3])
+    jeux.started()
+    jeux.runAffichage()
 
     while inProgress:
 
@@ -82,6 +84,8 @@ if sys.argv[1] == "Menu":
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 inProgress = False
+            jeux.run(event)
+            jeux.controller()
 
         # Maj
         pygame.display.update()

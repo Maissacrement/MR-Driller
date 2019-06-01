@@ -12,6 +12,7 @@ class Fenetre():
         self.title = title
         self.pygame = pygame
         self.screen = None
+        self.font = None
 
     # SET
     def setMySurface(self, newSize):
@@ -27,10 +28,6 @@ class Fenetre():
         self.screen = self.pygame.display.set_mode(self.mySurface)
         self.pygame.display.set_caption(self.title)
         self.screen.fill(WHITE)
-
-        # Init
-        # self.pygame.font.init()
-        # font = self.pygame.font.SysFont("comicsansms", 32)
 
     def exit(self):
         self.pygame.quit()

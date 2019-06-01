@@ -269,14 +269,16 @@ Intro: Il s'agit du menu
           - controller
           - started
           - game(Array)
+          - clear
 
       Détail methods:
         controller : assure la redirection entre le jeux et menu
         game : initialisée la scene de jeux graphique en fonction d'un tableau
         started: afficher le menu
+        clear : Supprime la scene actuel scene
         config : initialise une fenetre pygame
         exit : permet de gere la sortie
 ```
 
 
-## 8. main.py
+## 8. Main
