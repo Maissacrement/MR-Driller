@@ -47,17 +47,17 @@ les "--" representent les propositions de changement
 6 . Fenetre:
     - Il s'agit uniquement d'une page blanche mere du menu et de la scene de jeu
     - Simple affichage vide pygame page blanche
-7. Scene:
-  Affichage provenant de fenetre
-    - Separée en 2 partie sur un ecran scindé "jeu" et "information relative au jeu" (score,
-      air restant, vie restantes, niveau actuel, option pause?)
-    - Utilliser affichage pour créer la scène grapgiquement (init de la page blanche)
-    - Methode permettant de generer graphiquement un scene en fonction d'un tableau (idem qu'au dessus non?) +
-      qui relie les infos prises dans la scène de jeu pour y appliquer des sprites (faire en sortes qui si cette
-      fonction voit qu'il y a un bloc rouge en [x,y] elle affiche un bloc rouge à cet endroit)
-    - affiche l'etat de la scene, donc un tableau qui traduit les positions / les couleurs / etc... ce qu'il se passe dans le jeu en gros.
 8. Menu:
   Affichage provenant de fenetre
+    - Methode permettant de generer graphiquement un scene en fonction d'un tableau:
+       - 1. qui relie les infos prises dans la scène de jeu pour y appliquer des sprites
+            (faire en sortes qui si cette fonction voit qu'il y a un bloc rouge en [x,y]
+            elle affiche un bloc rouge à cet endroit)
+       - 2. Function permettant de mettre a jour avec un array en parametre
+            (Voir si on peut faire en sorte qu'il se mette a jour tous seul)
+       - 3. gerer la profondeur
+    - affiche l'etat de la scene, donc un tableau qui traduit les positions / les couleurs / etc...
+      ce qu'il se passe dans le jeu en gros.
 9. Stucture :
     - Init un tableau de block random, dont la proportionnalité peut être changée facilement en fonction du level.
     - Faire des fonctions pour chaque règle de jeu :
