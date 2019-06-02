@@ -72,10 +72,15 @@ if sys.argv[1] == "Menu":
     print('Welcom in Menu Test')
     inProgress = True
 
+    # Init plateform
     jeux = Menu((1000,500),"Mr driller","p1")
     jeux.config()
-    # jeux.game([4,3])
+
+    # start Menu
     jeux.started()
+
+    # init an array
+    jeux.setArray(ArrayBlock(8,8))
 
     while inProgress:
 
@@ -83,8 +88,8 @@ if sys.argv[1] == "Menu":
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 inProgress = False
-            jeux.run(event)
-            jeux.controller()
+            jeux.run(event) # gerer les evenement click
+            jeux.controller() # gere les transition entre scene du jeux
 
         # Maj
         pygame.display.update()

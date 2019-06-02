@@ -10,9 +10,16 @@ class Menu(Fenetre):
     def __init__(self, mySurface, title, Player):
         Fenetre.__init__(self, mySurface, title)
         self.Player = Player
+        self.array = None
         self.button = None
         self.display = "menu"
         self.changed = False
+
+    """
+        Set Array
+    """
+    def setArray(self, anArray):
+        self.array = anArray
 
     """
         Gerer la transition entre le Menu et Le jeux
@@ -24,7 +31,10 @@ class Menu(Fenetre):
             if self.display == "menu":
                 self.started()
             if self.display == "game":
-                self.game([4,3])
+                if self.array == None:
+                    print('Ajouter un array')
+                else:
+                    self.game()
 
     """
         run menu
@@ -85,6 +95,35 @@ class Menu(Fenetre):
     """
         run game
     """
+    def game(self):
+        # Constant
+        x, y = self.mySurface # recuperer la taille de l'ecran
+        x = x - (x/6) # cree un espace pour le score
+
+        ## User entry
+        x_col,y_line = self.array.getPosition()
+
+        # Element of compare min and max
+        horizontal, vertical = 0,0
+        translate_h, translate_v = x/x_col, y/y_line
+
+        # Boolean
+        tracer = True
+        tracer_line = True
+
+        while tracer:
+            self.pygame.draw.line(self.screen, BLACK, (horizontal, 0), (horizontal,y), 5)
+            horizontal+= translate_h
+            if horizontal > x:
+                tracer = False
+
+        while tracer_line:
+            self.pygame.draw.line(self.screen, BLACK, (0, vertical), (x,vertical), 5)
+            vertical+= translate_v
+            if vertical > y:
+                tracer_line = False
+
+    """
     def game(self, size):
         # Constant
         x, y = self.mySurface # recuperer la taille de l'ecran
@@ -112,3 +151,4 @@ class Menu(Fenetre):
             vertical+= translate_v
             if vertical > y:
                 tracer_line = False
+    """

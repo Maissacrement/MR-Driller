@@ -26,6 +26,9 @@ class ArrayBlock():
 
         """End Init"""
 
+    def getPosition(self):
+        return [self.c, self.l]
+
     def getBlock(self, position):
         """reject"""
         if type(position) is not list:
