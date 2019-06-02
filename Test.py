@@ -80,7 +80,9 @@ if sys.argv[1] == "Menu":
     jeux.started()
 
     # init an array
-    jeux.setArray(ArrayBlock(8,8))
+    tab = ArrayBlock(16, 10)
+    jeux.setArray(tab)
+    print(vars(tab)['blocks'])
 
     while inProgress:
 

@@ -80,4 +80,4 @@ class Block(Base):
             raise NameError('Merge est la capacicté d\'un block a fusionner avec un autre \nLa valeur doit etre un boolean')
 
     def __del__(self):
-        print("deleted")
+        print("delete block", self.couleur)

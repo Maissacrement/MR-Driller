@@ -28,6 +28,7 @@ class Menu(Fenetre):
         if self.changed == True:
             self.changed = False
             self.insertBackg()
+            # self.clear()
             if self.display == "menu":
                 self.started()
             if self.display == "game":
@@ -99,29 +100,72 @@ class Menu(Fenetre):
         # Constant
         x, y = self.mySurface # recuperer la taille de l'ecran
         x = x - (x/6) # cree un espace pour le score
+        i=0
 
         ## User entry
         x_col,y_line = self.array.getPosition()
 
         # Element of compare min and max
         horizontal, vertical = 0,0
-        translate_h, translate_v = x/x_col, y/y_line
+        translate_h, translate_v = x//x_col, y//y_line
 
         # Boolean
         tracer = True
         tracer_line = True
 
-        while tracer:
-            self.pygame.draw.line(self.screen, BLACK, (horizontal, 0), (horizontal,y), 5)
-            horizontal+= translate_h
-            if horizontal > x:
+        # cree le button et le positionner
+        #self.pygame.draw.rect(self.screen, BLUE, pygame.Rect(0, 0, translate_h, translate_v))
+
+        # maj affichage
+        pygame.display.flip()
+        color = ["green","yellow",None,"brown"]
+
+        while i < (x_col * y_line) + 1:
+            size = (0, 0, translate_h, translate_v)
+            path = "Assets/Blocks/yellow.png"
+            self.insert(path, [horizontal, vertical], size)
+            if i !=0:
+                horizontal+= translate_h
+                if(i % x_col == 0):
+                    vertical+= translate_v
+                    horizontal = 0
+                # path = "Assets/Blocks/"+color[i-1]+".png"
+                #if i < len(color) and color[i-1] != None:
+
+            i+=1
+            print('i:',i,vertical, horizontal)
+
+        """
+        while tracer or tracer_line:
+            size = (0, 0, translate_h, translate_v)
+
+            if horizontal < x:
+
+                self.pygame.draw.line(self.screen, BLACK, (horizontal, 0), (horizontal,y), 5)
+
+                self.insert("Assets/Blocks/green.png", [horizontal, translate_v], size)
+
+                horizontal+= translate_h
+
+            elif tracer == True:
                 tracer = False
 
-        while tracer_line:
-            self.pygame.draw.line(self.screen, BLACK, (0, vertical), (x,vertical), 5)
-            vertical+= translate_v
-            if vertical > y:
+            if vertical < y:
+                self.pygame.draw.line(self.screen, BLACK, (0, vertical), (x,vertical), 5)
+
+                vertical+= translate_v
+            elif tracer_line == True:
                 tracer_line = False
+        """
+
+    def insert(self, img, pos, size):
+        # Inserer un fond d'ecran
+        path = img
+        background_image = pygame.image.load(path).convert()
+        background_image = pygame.transform.scale(background_image, (1250, int(50)))
+        self.screen.blit(background_image,
+            pos, # Position
+        size) # Taille
 
     """
     def game(self, size):

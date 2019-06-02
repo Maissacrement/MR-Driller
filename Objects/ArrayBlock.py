@@ -21,7 +21,7 @@ class ArrayBlock():
             for j in range(l):
                 random = Color.getRandomColor()
                 self.blocks[i].append(Block.createGoodBlock(random, [i, j]))
-                if(i == l):
+                if(j == l):
                     self.blocks[i+1].append(Block.createGoodBlock(Color.getRandomColor(), [i, j]))
 
         """End Init"""
