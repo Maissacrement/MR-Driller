@@ -13,7 +13,8 @@ les "--" representent les propositions de changement
 
 2. Les blocs : ✔
     compareBlock(Blocs) : compare si ce Blocs peut etre Lie a celui en parametre et renvoie un Boolean
-    -- La fonction de fusion de blocs (comment representer la fusion, un block indepant ne connais pas la scene de jeux ?)
+    -- La fonction de fusion de blocs
+       (comment representer la fusion, un block indepant ne connais pas la scene de jeux ?)
     -- La fonction de chute de blocs
       (juste l'info qui lui dit "je peux tomber", donc seulement l'info SI il peut tomber,
        non pas la chute en elle même, gérée par la scène)
@@ -35,6 +36,7 @@ les "--" representent les propositions de changement
     - fonction mouvements (Avec les spécificités)
     - objet à part =/= d'un bloc
 5. ArrayBlock complete le tableau avec les bonne proportionnalite:
+    - Essayer de generer des niveau de difficulté (peut-etre en ajoutant un argument a l'init)
     - faire en sorte que la difficulté puisse etre changée en fonction de l'avancée dans le jeu (le niveau)
     - Update : faire descandre les blocs qd il y a des espaces vide
       (en gros gravité, besoin d'un check si un espace vide est en dessous d'un bloc)
@@ -59,7 +61,8 @@ les "--" representent les propositions de changement
     - affiche l'etat de la scene, donc un tableau qui traduit les positions / les couleurs / etc...
       ce qu'il se passe dans le jeu en gros.
 9. Stucture :
-    - Init un tableau de block random, dont la proportionnalité peut être changée facilement en fonction du level.
+    - Init un tableau de block random, dont la proportionnalité peut être changée
+      facilement en fonction du level.
     - Faire des fonctions pour chaque règle de jeu :
         -La fusion des blocs quand 3 ou plus
         -la destruction des blocs quand 3 ou plus
