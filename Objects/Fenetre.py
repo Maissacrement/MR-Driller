@@ -28,6 +28,15 @@ class Fenetre():
         self.screen = self.pygame.display.set_mode(self.mySurface)
         self.pygame.display.set_caption(self.title)
         self.screen.fill(WHITE)
+        self.insertBackg()
+
+    def insertBackg(self):
+
+        # Inserer un fond d'ecran
+        path = "Assets/Backgrounds/background.png"
+        background_image = pygame.image.load(path).convert()
+        background_image = pygame.transform.scale(background_image, self.mySurface)
+        self.screen.blit(background_image, [0, 0])
 
     def exit(self):
         self.pygame.quit()

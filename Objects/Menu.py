@@ -15,16 +15,14 @@ class Menu(Fenetre):
         self.changed = False
 
     """
-        Cette method permet de gerer la transition
-        entre le Menu et Le jeux
+        Gerer la transition entre le Menu et Le jeux
     """
     def controller(self):
         if self.changed == True:
             self.changed = False
-            self.screen.fill((255,255,255))
+            self.insertBackg()
             if self.display == "menu":
                 self.started()
-                self.runAffichage()
             if self.display == "game":
                 self.game([4,3])
 
@@ -33,29 +31,31 @@ class Menu(Fenetre):
     """
     def started(self):
         # Init
-        #self.screen.fill(WHITE)
         self.pygame.font.init()
         self.font = self.pygame.font.SysFont("comicsansms", 32)
         self.text = self.font.render("Mr driller", True, BLACK)
 
-    """
-        gere l'impression ecran position et actualisation
-    """
-    def runAffichage(self):
         #get screen size
         x, y = self.mySurface
         x, y = x/2,y/2
         self.subfont = self.pygame.font.SysFont("comicsansms", 20)
 
-        # button
+        # Titre
+        path = "Assets/Perso_and_Menu/Perso.gif"
+        background_image = pygame.image.load(path).convert()
+        self.screen.blit(background_image,
+            (x - (180 // 2), (y - 100) - (100 // 2)),
+        (160, 490, 180, 100))
+
+        # cree le button et le positionner
         self.button = pygame.draw.rect(self.screen, (255, 0, 0), pygame.Rect((x - 30), (y + 100), 60, 30))
 
-        # position du text
-        self.screen.blit( self.text,
-            (x - (self.text.get_width() // 2), (y - 100) - (self.text.get_height() // 2))
-        )
+        # gerer la position du Titre Mr driller
+        #self.screen.blit( self.text,
+        #    (x - (self.text.get_width() // 2), (y - 100) - (self.text.get_height() // 2))
+        #)
 
-        # set button text position
+        # gerer la position du text du boutton
         self.screen.blit(self.subfont.render('Start', True, BLACK), ((x - 30), y + 100))
 
         # maj affichage
@@ -87,7 +87,8 @@ class Menu(Fenetre):
     """
     def game(self, size):
         # Constant
-        x, y = self.mySurface
+        x, y = self.mySurface # recuperer la taille de l'ecran
+        x = x - (x/6) # cree un espace pour le score
 
         ## User entry
         x_col,y_line = size

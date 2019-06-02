@@ -260,18 +260,24 @@ Intro: Il s'agit du menu
 ```
     Class Menu(Affichage):
       Propriete: Params(surface, pygame, Personnage)
+        - button  : None
+        - display : String
+        - changed : Bool
+        - pygame = pygame
         - Personnage : Blocks
           - surface : Tuple(int, int) taille Longueur x Largeur en pixel
           - pygame : add pygame as property
 
       Methode:
         Procedure:
+          - run
           - controller
           - started
           - game(Array)
           - clear
 
       Détail methods:
+        run : gerer un click
         controller : assure la redirection entre le jeux et menu
         game : initialisée la scene de jeux graphique en fonction d'un tableau
         started: afficher le menu
@@ -282,3 +288,9 @@ Intro: Il s'agit du menu
 
 
 ## 8. Main
+
+
+## 9. Asset
+
+We take `Asset` file on a github repo :
+  - `https://github.com/Chessy-Cakes/mr-driller`

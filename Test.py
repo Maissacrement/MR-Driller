@@ -76,7 +76,6 @@ if sys.argv[1] == "Menu":
     jeux.config()
     # jeux.game([4,3])
     jeux.started()
-    jeux.runAffichage()
 
     while inProgress:
 
