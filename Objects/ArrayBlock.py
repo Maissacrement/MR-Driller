@@ -26,7 +26,7 @@ class ArrayBlock():
 
         """End Init"""
 
-    def getPosition(self):
+    def getSize(self):
         return [self.c, self.l]
 
     def getBlock(self, position):
