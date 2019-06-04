@@ -124,6 +124,7 @@ class Menu(Fenetre):
         # maj affichage
         pygame.display.flip()
 
+        # Test de block lie
         array = [
             [3,4],
             [3,1],
