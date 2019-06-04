@@ -4,6 +4,7 @@ WHITE = (255,255,255)
 RED = (255,0,0)
 BLACK = (0,0,0)
 BLUE = (0,0,255)
+YELLOW = (240,176,16,1)
 
 class Menu(Fenetre):
 
@@ -15,6 +16,10 @@ class Menu(Fenetre):
         self.display = "menu"
         self.changed = False
         self.split = 6
+
+    # Methods
+
+    ## Procedures
 
     """
         Set Array
@@ -68,7 +73,7 @@ class Menu(Fenetre):
         #)
 
         # gerer la position du text du boutton
-        self.screen.blit(self.subfont.render('Start', True, BLACK), ((x - 30), y + 100))
+        self.screen.blit(self.subfont.render(' Start', True, BLACK), ((x - 30), y + 100))
 
         # maj affichage
         pygame.display.flip()
@@ -98,20 +103,6 @@ class Menu(Fenetre):
         pygame.display.update()
 
     """
-        Inserer un fond d'ecran
-    """
-    def insert(self, img, block_size, block_pos, size, zoom=(1250, int(58))):
-        pos_x, pos_y = block_size # GET Block position
-        translate_h, translate_v = block_pos  # Get Block size
-
-        pos = [translate_h * pos_x, translate_v * pos_y]
-        background_image = pygame.image.load(img).convert() # Chargez l'image
-        background_image = pygame.transform.scale(background_image, zoom) # Zoom
-        self.screen.blit(background_image,
-            pos, # Position
-        size) # Taille
-
-    """
         run game
     """
     def game(self):
@@ -133,6 +124,17 @@ class Menu(Fenetre):
         # maj affichage
         pygame.display.flip()
 
+        array = [
+            [3,4],
+            [3,1],
+            [3,3],
+            [3,2],
+            [4,4],
+            [4,5]
+        ]
+
+        self.mergeBlocks(block_size, array) # maj graphique du jeux
+
         for blocks in list_of_blocks:
             for block in blocks:
 
@@ -142,115 +144,97 @@ class Menu(Fenetre):
                 path = "Assets/Blocks/" + block.couleur + ".png"
                 #display img on the window
 
-                if block.position != [3,3] and block.position != [3,4]:
+                if not block.position in array:
                     print(block.position)
                     self.insert(path, block.position, block_size, size)
 
-        self.mergeBlocks(block_size) # maj graphique du jeux
+    """
+        Inserer un fond d'ecran
+    """
+    def insert(self, img, block_size, block_pos, size, zoom=(1400, int(60))):
+        pos_x, pos_y = block_size # GET Block position
+        translate_h, translate_v = block_pos  # Get Block size
 
+        pos = [translate_h * pos_x, translate_v * pos_y]
+        background_image = pygame.image.load(img).convert() # Chargez l'image
+        background_image = pygame.transform.scale(background_image, zoom) # Zoom
+        self.screen.blit(background_image,
+            pos, # Position
+        size) # Taille
 
     """
+        fusionner graphiquement les blocks
+        ---------------------------------
+        @params: {
+            block_size : taille d'un block
+            list: list de block lie
+        }
+    """
+    def mergeBlocks(self, block_size, list):
+
+        # Rangez la list dans l'ordre
+        list.sort()
+
+        # Get deplacement
+        deplacement = self.directionForFusion(list)
+        nb = len(list) # nb de blocks a fusionne
+
+        block_display = {}
+
+        """ Representation graphique """
+        # size pour 1 block block_size [0]: longueur, [1]: largeur
+        block_display['size'] = block_size # taille des blocks
+        block_display['path'] = "Assets/Blocks/yellow.png" # Path of image
+
+        """ Representation Logique """
+        block_display['pos_of_linked_blocks'] = list # Tab of position
+        block_display['deplacement'] = deplacement # represente les deplacements logique a affectue pour affiché les bloc lie
+
+        self.drawMergeBlock(block_display)
+
+    """
+        affiche un block la fusion des bloc
+        -----------------------------------
+        @params: Block: {
+            'size' : position of a block in array of block
+            'block_size' : taille des blocks
+            'path' : Path of image
+            'pos_of_linked_blocks' : Tab of position
+            'deplacement' : represente les deplacements logique a affectue pour affiché les bloc lie
+        }
+    """
+    def drawMergeBlock(self, block):
+        print(block)
+        size = block['size'] # position of a block in array of block
+        list = block['pos_of_linked_blocks'] # get position of linked block
+
+        #background_image = pygame.image.load(block['path']).convert() # Chargez l'image
+        for nb in range(len(list)):
+            rect_conf = (size[0] * list[nb][0], size[1] * list[nb][1], size[0], size[1])
+            background_image = pygame.draw.rect(
+                self.screen,
+                YELLOW,
+                pygame.Rect(rect_conf)
+            )
+
+    ## Functions
+
+    """
+        Traduire un deplacement en coordonée
         Cree une fonction qui me permet de faire
         -1 et +1 dans un array
     """
+    def directionForFusion(self, tab):
+        result = []
 
-    """
-        1. fonction permettant de retirer un block et de prolonger
-        la taille du block adjacent
-        2. pouvoir integrer un tableau de position
-        3. essayer d'integrer la fonction a self.insert
-        --------------------------------------------
-    """
-    def mergeBlocks(self, block_size):
-        list = [
-            [3,3],
-            [3,4]
-        ]
+        for x in range(len(tab) - 1):
 
-        print(list)
+            x,y = (tab[x+1][0] - tab[x][0]), (tab[x+1][1] - tab[x][1])
+            result.append([x,y])
 
-        # size block_size [0]: longueur, [1]: largeur
-        size = (0, 0, block_size[0], block_size[1]  * 2)
-        path = "Assets/Blocks/yellow.png"
-        self.insert(path, list[0], block_size, size, (1250, int(120)))
+        return result
 
-        """
-        for pos in list:
-
-            # size block_size [0]: largeur, [1]: longueur
-            size = (0, 0, block_size[0], block_size[1])
-            path = "Assets/Blocks/yellow.png"
-            self.insert(path, pos, block_size, size)
-        """
-    """
-    # horizontal, vertical = 0,0
-    # tracer = True
-    # tracer_line = True
-    while i < (x_col * y_line) + 1:
-        size = (0, 0, translate_h, translate_v)
-        path = "Assets/Blocks/yellow.png"
-        self.insert(path, [horizontal, vertical], size)
-        if i !=0:
-            horizontal+= translate_h
-            if(i % x_col == 0):
-                vertical+= translate_v
-                horizontal = 0
-            # path = "Assets/Blocks/"+color[i-1]+".png"
-            #if i < len(color) and color[i-1] != None:
-
-        i+=1
-        print('i:',i,vertical, horizontal)
-    """
-
-    """
-    while tracer or tracer_line:
-            size = (0, 0, translate_h, translate_v)
-
-        if horizontal < x:
-
-            self.pygame.draw.line(self.screen, BLACK, (horizontal, 0), (horizontal,y), 5)
-
-            self.insert("Assets/Blocks/green.png", [horizontal, translate_v], size)
-
-            horizontal+= translate_h
-
-        elif tracer == True:
-            tracer = False
-
-        if vertical < y:
-            self.pygame.draw.line(self.screen, BLACK, (0, vertical), (x,vertical), 5)
-
-            vertical+= translate_v
-        elif tracer_line == True:
-            tracer_line = False
-    """
-
-    """
-    def game(self, size):
-        # Constant
-        x, y = self.mySurface # recuperer la taille de l'ecran
-        x = x - (x/6) # cree un espace pour le score
-
-        ## User entry
-        x_col,y_line = size
-
-        # Element of compare min and max
-        horizontal, vertical = 0,0
-        translate_h, translate_v = x/x_col, y/y_line
-
-        # Boolean
-        tracer = True
-        tracer_line = True
-
-        while tracer:
-            self.pygame.draw.line(self.screen, BLACK, (horizontal, 0), (horizontal,y), 5)
-            horizontal+= translate_h
-            if horizontal > x:
-                tracer = False
-
-        while tracer_line:
-            self.pygame.draw.line(self.screen, BLACK, (0, vertical), (x,vertical), 5)
-            vertical+= translate_v
-            if vertical > y:
-                tracer_line = False
-    """
+    # size pour 1 block block_size [0]: longueur, [1]: largeur
+    #size = (0, 0, block_size[0], block_size[1])
+    #path = "Assets/Blocks/yellow.png"
+    #self.insert(path, list[0], block_size, size, (1250, int(60 * nb)))
