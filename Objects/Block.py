@@ -59,14 +59,14 @@ class Block(Base):
     """
     def sideOfMe(self):
         position = [] # Init an empty array
-        x, y = self.position # On enregistre les coordonne dans des variable
+        x, y = self.position # On enregistre les coordonnées dans des variable
 
         position.append([x, y - 1]) if  (y - 1 >= 0) else None # En haut
         position.append([x - 1, y]) if  (x - 1 >= 0) else None # A gauche
         position.append([x, y + 1]) # En bas
         position.append([x + 1, y]) # A droite
 
-        return position # On retourne les coordonnée
+        return position # On retourne les coordonnées
 
     # Procedures
     def reject(self, couleur, expire, merge):
