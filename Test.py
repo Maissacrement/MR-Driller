@@ -13,7 +13,6 @@ from Objects.Personnage import * # Recuperer l'object Personnage
 from Objects.ArrayBlock import * # Recuperer l'object Block
 from Objects.SImulation import *
 from Objects.Menu import * # Recuperer le Menu
-from Objects.Menuv2 import * # Recuperer le Menu
 ## Function
 from Functions.getRandomColor import * # Recuperer la function getRandomColor()
 from Functions.createGoodBlock import * # Recuperer la function createGoodBlock
@@ -88,40 +87,7 @@ if sys.argv[1] == "Perso":
     pygame.quit()
 
 
-
 if sys.argv[1] == "Menu":
-    print('Welcom in Menu Test')
-    inProgress = True
-
-    # init an array
-    tab = ArrayBlock(16, 10)
-
-    # Init plateform
-    jeux = Menu((1000,500),"Mr driller","p1") # Init Menu Object
-    jeux.setArray(tab) # associe le tableau et l'Object Menu
-    jeux.init() # Lancer la config du jeux
-
-    # start Menu
-    jeux.started() # Demarrer le jeux
-
-    #print(vars(tab)['blocks'])
-
-    while inProgress:
-
-        # Quit event
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                inProgress = False
-            jeux.run(event) # gerer les evenement click
-            jeux.controller() # gere les transition entre scene du jeux
-            jeux.simulateAtClick(event)
-
-        # Maj
-        pygame.display.update()
-
-    pygame.quit()
-
-if sys.argv[1] == "Menuv2":
     print('Welcom in Menu Test')
     inProgress = True
     nb_col = 10
@@ -138,7 +104,7 @@ if sys.argv[1] == "Menuv2":
     print(printc)
 
     # Init plateform
-    jeux = Menuv2((1000,500),"Mr driller") # Get Menu instance
+    jeux = Menu((1000,500),"Mr driller") # Get Menu instance
     jeux.init(tab) # init game config
 
     # Start Menu of Game

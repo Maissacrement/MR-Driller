@@ -9,60 +9,43 @@ YELLOW = (240,176,16,1)
 
 class Menu(Fenetre):
 
-    def __init__(self, mySurface, title, Player):
+    def __init__(self, mySurface, title):
         Fenetre.__init__(self, mySurface, title)
-        self.Player = Player
-        self.array = None
-        self.button = None
         self.display = "menu"
         self.changed = False
-        self.chute = False
         self.simulation = False
-        self.split = 6
+        self.display_line = 10 # Cut screen vertically in 10
+        self.split = 3 # proportionnalité du partage d'ecran
+        self.screenLimit = 5 # started draw block
+        self.level = 1
 
     # Methods
 
     ## Procedures
-
     """
-        init games params
+        init variable of games and run config
     """
-    def init(self):
+    def init(self, array):
         # Constant
-        x, y = self.mySurface # recuperer la taille de l'ecran
-        self.sizeFirstScreen = x - (x/self.split) # ecran scindé en longueur
-        self.sizeSecondScreen = x - self.sizeFirstScreen
 
-        ## User entry
-        x_col,y_line = self.array.getSize()
+        # Get screen size
+        x, y = self.mySurface # Taille total de l'ecran
+        # ecran scindé en longueur
+        self.sizeFirstScreen = x - (x/self.split) # ecran1 : Jeux
+        self.sizeSecondScreen = x - self.sizeFirstScreen # ecran2 : Score
 
-        # Size of block as width and height of screen
-        self.block_size = [x//x_col, y//y_line]
+        # Colonne, Line pour l'affichage
+        x_col,y_line = array.c, self.display_line
 
+        # Block size : width and height
+        self.block_size = [self.sizeFirstScreen/x_col, y/y_line]
+
+        # Save Array
+        self.array = array
+
+        # run config
         self.config()
 
-    """
-        Set Array
-    """
-    def setArray(self, anArray):
-        self.array = anArray
-
-    """
-        Gerer la transition entre le Menu et Le jeux
-    """
-    def controller(self):
-        if self.changed == True:
-            self.changed = False
-            self.insertBackg()
-            # self.clear()
-            if self.display == "menu":
-                self.started()
-            if self.display == "game":
-                if self.array == None:
-                    print('Ajouter un array')
-                else:
-                    self.game() # partie logique du jeux
-                    #self.chuteSimulation()
     """
         run menu
     """
@@ -87,16 +70,48 @@ class Menu(Fenetre):
         # cree le button et le positionner
         self.button = pygame.draw.rect(self.screen, (255, 0, 0), pygame.Rect((x - 30), (y + 100), 60, 30))
 
-        # gerer la position du Titre Mr driller
-        #self.screen.blit( self.text,
-        #    (x - (self.text.get_width() // 2), (y - 100) - (self.text.get_height() // 2))
-        #)
-
         # gerer la position du text du boutton
         self.screen.blit(self.subfont.render(' Start', True, BLACK), ((x - 30), y + 100))
 
         # maj affichage
         pygame.display.flip()
+
+    """
+        run game
+    """
+    def game(self):
+
+        #GET Blocks
+        list_of_blocks = self.array.blocks
+
+        # Get block size
+        block_size = self.block_size
+
+        for y in range(len(list_of_blocks)):
+            for x in range(len(list_of_blocks[y])):
+
+                # Define image path
+                path = "Assets/Blocks/" + list_of_blocks[y][x].couleur + ".png"
+
+                # Draw block
+                self.drawBlock([x, y + self.screenLimit], path)
+
+
+    """
+        Gerer la transition entre le Menu et Le jeux
+    """
+    def controller(self):
+        if self.changed == True:
+            self.changed = False
+            self.insertBackg()
+            if self.display == "menu":
+                self.started()
+            if self.display == "game":
+                if self.array == None:
+                    print('Game hasn\'t init')
+                else:
+                    # Lancer le jeux
+                    self.game()
 
     """
         Gere un click
@@ -116,95 +131,63 @@ class Menu(Fenetre):
                     self.changed = True
 
     """
-        reinitialise une fenetre
+        Print graphical block
+        ---------------------
+        @params:
+            pos: Array<Int,Int> as [x,y]
+                -indiqué la position du block
+            img: String
+                - indique le path relatif a l'image
+        @params optional:
+            merged: boolean
+                -indiqué si il s'agit d'un bloclie ou non
     """
-    def clear(self):
-        self.screen.fill((255,255,255))
-        pygame.display.update()
+    def drawBlock(self, pos, img, merged=False):
+        x, y = 0,0 # image position
 
-    """
-        run game
-    """
-    def game(self):
+        # onMerge remove spaces
+        if merged:
+            x, y = 20, 8 # linked block
 
-        #GET Blocks
-        list_of_blocks = self.array.blocks
-
-        # Get block size
-        block_size = self.block_size
-
-        # maj affichage
-        pygame.display.flip()
-
-        # Test de block lie
-        array = [
-            [3,4],
-            [3,1],
-            [3,3],
-            [3,2],
-            [4,4],
-            [4,5]
-        ]
-
-        self.mergeBlocks(array) # maj graphique du jeux
-
-        for blocks in list_of_blocks:
-            for block in blocks:
-
-                # size block_size [0]: longueur, [1]: largeur
-                size = (0, 0, block_size[0], block_size[1])
-                #img path
-                path = "Assets/Blocks/" + block.couleur + ".png"
-                #display img on the window
-
-                if not block.position in array:
-                    print(block.position)
-                    self.insert(path, block.position, block_size, size)
-
-    """
-        Inserer un fond d'ecran
-    """
-    def insert(self, img, block_size, block_pos, size, zoom=(1400, int(60))):
-        pos_x, pos_y = block_size # GET Block position
-        translate_h, translate_v = block_pos  # Get Block size
+        #img path
+        #display img on the window
+        pos_x, pos_y = pos # GET Block position
+        translate_h, translate_v = self.block_size  # Get Block size
+        size = (x, y, translate_h, translate_v) # Define block dimension
 
         pos = [translate_h * pos_x, translate_v * pos_y]
         background_image = pygame.image.load(img) # Chargez l'image
-        background_image = pygame.transform.scale(background_image, zoom) # Zoom
+        background_image = pygame.transform.scale(
+            background_image, (1800, int(60))
+        )
         self.screen.blit(background_image,
             pos, # Position
         size) # Taille
 
     """
-        fusionner graphiquement les blocks
-        ---------------------------------
-        @params: {
-            block_size : taille d'un block
-            list: list de block lie
-        }
+        Deplace la scene de jeux vers le haut
     """
-    def mergeBlocks(self, list):
+    def moveSceneTop(self):
+        if self.screenLimit > 0:
+            self.screenLimit-=1
+        else:
+            if len(self.array.blocks) > 0:
+                self.array.blocks.pop(0)
+                print('remove')
+            else:
+                print('generate another tab')
 
-        # Rangez la list dans l'ordre
-        list.sort()
+        self.insertBackg()
+        self.game()
 
-        # Get deplacement
-        nb = len(list) # nb de blocks a fusionne
+    """
+        Simuler la destruction d'un block
+    """
 
-        """ Representation graphique """
-        path = "Assets/Blocks/yellow.png" # Path of image
-
-        size = self.block_size # position of a block in array of block
-
-        #background_image = pygame.image.load(block['path']).convert() # Chargez l'image
-        for nb in range(len(list)):
-            rect_conf = (size[0] * list[nb][0], size[1] * list[nb][1], size[0], size[1])
-            background_image = pygame.draw.rect(
-                self.screen,
-                YELLOW,
-                pygame.Rect(rect_conf)
-            )
-            self.insert(path, list[nb], size, (5, 5, size[0] + 5, size[1] -10), (1400, int(80)))
+    """
+        Test Function
+        ---------------------------------------------------------
+    """
 
     """
         Lancer la simulation de la chute de blocks
@@ -223,10 +206,11 @@ class Menu(Fenetre):
             [4,4],
             [4,5]
         ]
+        # Init  simulation
 
         if self.display == "game":
+            #self.mergeBlocks(array)
             if event.type == pygame.MOUSEBUTTONUP and self.simulation == True:
-                print('click here')
                 #self.chuteSimulation(array)
                 self.moveSceneTop()
 
@@ -247,7 +231,7 @@ class Menu(Fenetre):
 
         print(newArray)
         self.insertBackg()
-        self.mergeBlocks(newArray) # maj graphique du jeux
+        #self.mergeBlocks(newArray) # maj graphique du jeux
 
         # maj affichage
         pygame.display.flip()
@@ -297,42 +281,3 @@ class Menu(Fenetre):
     """
     def getYCoord(self, array):
         return array[len(array) - 1][0]
-
-    """
-        Deplace la scene de jeux vers le haut
-    """
-    def moveSceneTop(self):
-        self.array.blocks.pop(0)
-        self.insertBackg()
-        self.game()
-
-    """
-        Simuler la destruction d'un block
-    """
-
-    ## Functions
-
-    """
-        Traduire un deplacement en coordonée
-        Cree une fonction qui me permet de faire
-        -1 et +1 dans un array
-        ---------------------------------------
-        @params:
-            - tab: Array de position
-        @return:
-            - result: coordonée de deplacement
-    def directionForFusion(self, tab):
-        result = []
-
-        for x in range(len(tab) - 1):
-
-            x,y = (tab[x+1][0] - tab[x][0]), (tab[x+1][1] - tab[x][1])
-            result.append([x,y])
-
-        return result
-    """
-
-    # size pour 1 block block_size [0]: longueur, [1]: largeur
-    #size = (0, 0, block_size[0], block_size[1])
-    #path = "Assets/Blocks/yellow.png"
-    #self.insert(path, list[0], block_size, size, (1250, int(60 * nb)))
