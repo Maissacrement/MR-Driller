@@ -1,4 +1,6 @@
 from Objects.Fenetre import *
+from Objects.Block import * # Recuperer l'object Block
+from Objects.Personnage import * # Recuperer l'object Personnage
 from time import *
 
 WHITE = (255,255,255)
@@ -16,7 +18,7 @@ class Menu(Fenetre):
         self.simulation = False
         self.display_line = 10 # Cut screen vertically in 10
         self.split = 3 # proportionnalité du partage d'ecran
-        self.screenLimit = 5 # started draw block
+        self.screenLimit = 4 # started draw block
         self.level = 1
 
     # Methods
@@ -25,7 +27,7 @@ class Menu(Fenetre):
     """
         init variable of games and run config
     """
-    def init(self, array):
+    def init(self, array, perso):
         # Constant
 
         # Get screen size
@@ -42,6 +44,15 @@ class Menu(Fenetre):
 
         # Save Array
         self.array = array
+
+        # Perso
+        self.perso = perso
+
+        # Ajout du personnage sur la scene de jeux
+        py,px = perso.position
+        self.array.blocks[py][px] = perso
+
+        print(self.array)
 
         # run config
         self.config()
@@ -90,11 +101,16 @@ class Menu(Fenetre):
         for y in range(len(list_of_blocks)):
             for x in range(len(list_of_blocks[y])):
 
-                # Define image path
-                path = "Assets/Blocks/" + list_of_blocks[y][x].couleur + ".png"
+                if not type(list_of_blocks[y][x]) == int:
+                    if type(list_of_blocks[y][x]) == Block:
+                        # Define image path
+                        path = "Assets/Blocks/" + list_of_blocks[y][x].couleur + ".png"
 
-                # Draw block
-                self.drawBlock([x, y + self.screenLimit], path)
+                    elif type(list_of_blocks[y][x]) == Personnage:
+                        path = "Assets/Blocks/air.png"
+
+                    # Draw block
+                    self.drawBlock([x, y + self.screenLimit], path)
 
 
     """
@@ -175,6 +191,9 @@ class Menu(Fenetre):
                 self.array.blocks.pop(0)
                 print('remove')
             else:
+                self.screenLimit=4
+                self.array.generateArray(self.level)
+                self.array.changeLevel()
                 print('generate another tab')
 
         self.insertBackg()
@@ -182,6 +201,10 @@ class Menu(Fenetre):
 
     """
         Simuler la destruction d'un block
+    """
+
+    """
+        Level up
     """
 
     """
@@ -194,7 +217,7 @@ class Menu(Fenetre):
         au Click
         ------------------------------------------
         @params:
-            - event : permet de recuperer un evenementsur la fenetre
+            - event : permet de recuperer un evenement sur la fenetre
     """
     def simulateAtClick(self, event):
         # BlockLie

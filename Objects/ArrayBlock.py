@@ -23,13 +23,14 @@ class ArrayBlock():
         n étant la largeur (fixe) et m étant la longueur (modulable)
     """
     def generateArray(self, level=0):
+        self.blocks.append([0] * self.c)
         for i in range(self.l):
             self.blocks.append([])
             for j in range(self.c):
                 random = Color.getRandomColor(level)
-                self.blocks[i].append(Block.createGoodBlock(random, [i, j]))
+                self.blocks[i+1].append(Block.createGoodBlock(random, [i, j]))
                 if(j == self.c):
-                    self.blocks[i+1].append(Block.createGoodBlock(Color.getRandomColor(level), [i, j]))
+                    self.blocks[i+2].append(Block.createGoodBlock(Color.getRandomColor(level), [i, j]))
 
     """
         Get block size
@@ -47,7 +48,7 @@ class ArrayBlock():
         Up level
     """
     def changeLevel(self):
-        level+=1
+        self.level+=1
 
     """
         Recuperer un block selon sa position

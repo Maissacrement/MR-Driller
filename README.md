@@ -15,8 +15,7 @@ News :  `Ajout d'un fichier Test.py permettant des tester rapidement un object o
     - objet à part =/= d'un bloc
 
 5. ArrayBlock complete le tableau avec les bonne proportionnalite:
-    - Essayer de generer des niveau de difficulté (peut-etre en ajoutant un argument a l'init)
-    - faire en sorte que la difficulté puisse etre changée en fonction de l'avancée dans le jeu (le niveau)
+    - popBlock : supression d'un block
     - Update : faire descandre les blocs qd il y a des espaces vide
       (en gros gravité, besoin d'un check si un espace vide est en dessous d'un bloc)
     - Chute : En fonction de coordonné dire si un block peut descendre ou non
@@ -189,6 +188,7 @@ Intro: Il s'agit d'un tableau composé de Block
           - Lie : Boolean
         Procedure:
           - Update
+          - popBlock()
           - getBlockLie(Block)
           - popBlockLie(ArrayofBlock)
           - addBlockLie(Block)

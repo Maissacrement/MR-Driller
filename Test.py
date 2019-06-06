@@ -93,20 +93,24 @@ if sys.argv[1] == "Menu":
     inProgress = True
     nb_col = 10
 
-    # init an array
-    tab = ArrayBlock(16, nb_col)
+    # init
+    tab = ArrayBlock(16, nb_col) # Generate Array
+    perso1 = Personnage("myperso",[0,nb_col//2], "Assets/Blocks/air.png")
 
     printc = []
     for el in range(len(tab.blocks)):
         printc.append([])
         for blk in tab.blocks[el]:
-            printc[el].append(blk.couleur)
+            if not type(blk) == int:
+                printc[el].append(blk.couleur)
+            else:
+                printc[el].append(0)
 
     print(printc)
 
     # Init plateform
     jeux = Menu((1000,500),"Mr driller") # Get Menu instance
-    jeux.init(tab) # init game config
+    jeux.init(tab, perso1) # init game config
 
     # Start Menu of Game
     jeux.started()
