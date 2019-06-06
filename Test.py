@@ -11,8 +11,9 @@ from Objects.Block import * # Recuperer l'object Block
 from Objects.Capsule import * # Recuperer l'object Capsule
 from Objects.Personnage import * # Recuperer l'object Personnage
 from Objects.ArrayBlock import * # Recuperer l'object Block
-from Objects.Menu import * # Recuperer le Menu
 from Objects.SImulation import *
+from Objects.Menu import * # Recuperer le Menu
+from Objects.Menuv2 import * # Recuperer le Menu
 ## Function
 from Functions.getRandomColor import * # Recuperer la function getRandomColor()
 from Functions.createGoodBlock import * # Recuperer la function createGoodBlock
@@ -92,17 +93,18 @@ if sys.argv[1] == "Menu":
     print('Welcom in Menu Test')
     inProgress = True
 
-    # Init plateform
-    jeux = Menu((1000,500),"Mr driller","p1")
-    jeux.config()
-
-    # start Menu
-    jeux.started()
-
     # init an array
     tab = ArrayBlock(16, 10)
-    jeux.setArray(tab)
-    print(vars(tab)['blocks'])
+
+    # Init plateform
+    jeux = Menu((1000,500),"Mr driller","p1") # Init Menu Object
+    jeux.setArray(tab) # associe le tableau et l'Object Menu
+    jeux.init() # Lancer la config du jeux
+
+    # start Menu
+    jeux.started() # Demarrer le jeux
+
+    #print(vars(tab)['blocks'])
 
     while inProgress:
 
@@ -112,6 +114,46 @@ if sys.argv[1] == "Menu":
                 inProgress = False
             jeux.run(event) # gerer les evenement click
             jeux.controller() # gere les transition entre scene du jeux
+            jeux.simulateAtClick(event)
+
+        # Maj
+        pygame.display.update()
+
+    pygame.quit()
+
+if sys.argv[1] == "Menuv2":
+    print('Welcom in Menu Test')
+    inProgress = True
+    nb_col = 10
+
+    # init an array
+    tab = ArrayBlock(16, nb_col)
+
+    printc = []
+    for el in range(len(tab.blocks)):
+        printc.append([])
+        for blk in tab.blocks[el]:
+            printc[el].append(blk.couleur)
+
+    print(printc)
+
+    # Init plateform
+    jeux = Menuv2((1000,500),"Mr driller") # Get Menu instance
+    jeux.init(tab) # init game config
+
+    # Start Menu of Game
+    jeux.started()
+
+    while inProgress:
+
+        # Quit event
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                inProgress = False
+
+            jeux.run(event) # gerer les evenement click
+            jeux.controller() # gere les transition entre scene du jeux
+            jeux.simulateAtClick(event)
 
         # Maj
         pygame.display.update()

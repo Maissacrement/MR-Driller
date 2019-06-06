@@ -1,4 +1,5 @@
 from Objects.Fenetre import *
+from time import *
 
 WHITE = (255,255,255)
 RED = (255,0,0)
@@ -15,11 +16,30 @@ class Menu(Fenetre):
         self.button = None
         self.display = "menu"
         self.changed = False
+        self.chute = False
+        self.simulation = False
         self.split = 6
 
     # Methods
 
     ## Procedures
+
+    """
+        init games params
+    """
+    def init(self):
+        # Constant
+        x, y = self.mySurface # recuperer la taille de l'ecran
+        self.sizeFirstScreen = x - (x/self.split) # ecran scindé en longueur
+        self.sizeSecondScreen = x - self.sizeFirstScreen
+
+        ## User entry
+        x_col,y_line = self.array.getSize()
+
+        # Size of block as width and height of screen
+        self.block_size = [x//x_col, y//y_line]
+
+        self.config()
 
     """
         Set Array
@@ -42,7 +62,7 @@ class Menu(Fenetre):
                     print('Ajouter un array')
                 else:
                     self.game() # partie logique du jeux
-
+                    #self.chuteSimulation()
     """
         run menu
     """
@@ -106,20 +126,12 @@ class Menu(Fenetre):
         run game
     """
     def game(self):
-        # Constant
-        x, y = self.mySurface # recuperer la taille de l'ecran
-        x = x - (x/self.split) # ecran scindé en longueur
-        i=0 # itteration
-
-        ## User entry
-        x_col,y_line = self.array.getSize()
-
-        # Element of compare min and max
-        translate_h, translate_v = x//x_col, y//y_line
-        block_size = [translate_h, translate_v]
 
         #GET Blocks
         list_of_blocks = self.array.blocks
+
+        # Get block size
+        block_size = self.block_size
 
         # maj affichage
         pygame.display.flip()
@@ -134,7 +146,7 @@ class Menu(Fenetre):
             [4,5]
         ]
 
-        self.mergeBlocks(block_size, array) # maj graphique du jeux
+        self.mergeBlocks(array) # maj graphique du jeux
 
         for blocks in list_of_blocks:
             for block in blocks:
@@ -157,7 +169,7 @@ class Menu(Fenetre):
         translate_h, translate_v = block_pos  # Get Block size
 
         pos = [translate_h * pos_x, translate_v * pos_y]
-        background_image = pygame.image.load(img).convert() # Chargez l'image
+        background_image = pygame.image.load(img) # Chargez l'image
         background_image = pygame.transform.scale(background_image, zoom) # Zoom
         self.screen.blit(background_image,
             pos, # Position
@@ -171,43 +183,18 @@ class Menu(Fenetre):
             list: list de block lie
         }
     """
-    def mergeBlocks(self, block_size, list):
+    def mergeBlocks(self, list):
 
         # Rangez la list dans l'ordre
         list.sort()
 
         # Get deplacement
-        deplacement = self.directionForFusion(list)
         nb = len(list) # nb de blocks a fusionne
 
-        block_display = {}
-
         """ Representation graphique """
-        # size pour 1 block block_size [0]: longueur, [1]: largeur
-        block_display['size'] = block_size # taille des blocks
-        block_display['path'] = "Assets/Blocks/yellow.png" # Path of image
+        path = "Assets/Blocks/yellow.png" # Path of image
 
-        """ Representation Logique """
-        block_display['pos_of_linked_blocks'] = list # Tab of position
-        block_display['deplacement'] = deplacement # represente les deplacements logique a affectue pour affiché les bloc lie
-
-        self.drawMergeBlock(block_display)
-
-    """
-        affiche un block la fusion des bloc
-        -----------------------------------
-        @params: Block: {
-            'size' : position of a block in array of block
-            'block_size' : taille des blocks
-            'path' : Path of image
-            'pos_of_linked_blocks' : Tab of position
-            'deplacement' : represente les deplacements logique a affectue pour affiché les bloc lie
-        }
-    """
-    def drawMergeBlock(self, block):
-        print(block)
-        size = block['size'] # position of a block in array of block
-        list = block['pos_of_linked_blocks'] # get position of linked block
+        size = self.block_size # position of a block in array of block
 
         #background_image = pygame.image.load(block['path']).convert() # Chargez l'image
         for nb in range(len(list)):
@@ -217,6 +204,111 @@ class Menu(Fenetre):
                 YELLOW,
                 pygame.Rect(rect_conf)
             )
+            self.insert(path, list[nb], size, (5, 5, size[0] + 5, size[1] -10), (1400, int(80)))
+
+    """
+        Lancer la simulation de la chute de blocks
+        au Click
+        ------------------------------------------
+        @params:
+            - event : permet de recuperer un evenementsur la fenetre
+    """
+    def simulateAtClick(self, event):
+        # BlockLie
+        array = [
+            [3,4],
+            [3,1],
+            [3,3],
+            [3,2],
+            [4,4],
+            [4,5]
+        ]
+
+        if self.display == "game":
+            if event.type == pygame.MOUSEBUTTONUP and self.simulation == True:
+                print('click here')
+                #self.chuteSimulation(array)
+                self.moveSceneTop()
+
+            self.simulation = True
+
+    """
+        Simulation de la chute d'un ensemble de block
+        ---------------------------------------------
+        @params:
+            - blockLie : Tableu de position
+    """
+    def chuteSimulation(self, blockLie):
+        newArray = []
+        blockLie.sort()
+
+        for el in blockLie:
+            newArray.append([el[0], el[1] + 1])
+
+        print(newArray)
+        self.insertBackg()
+        self.mergeBlocks(newArray) # maj graphique du jeux
+
+        # maj affichage
+        pygame.display.flip()
+
+    """
+        The array need sorted !
+        Create auto chechk
+        -----------------------
+        @params:
+            - blockLie : Tableu de position
+    """
+    def canIMoveDown(self, blockLie):
+        i = 0
+        iCan = True
+        emplacement = self.getBlockWhoWantMove(blockLie)
+        blocks = self.array.blocks
+
+        while i < len(emplacement) and iCan:
+            x,y = emplacement[i]
+            if not blocks[x][y] == None:
+                iCan = False
+
+        return iCan
+
+    """
+        Recuperer un tableau de position
+        representant l'emplacement des
+        block de dernier rang
+        -------------------------------
+        @params:
+            - blockLie : Tableu de position
+    """
+    def getBlockWhoWantMove(self, blockLie):
+        blocks = []
+        y = getYCoord(blockLie)
+        i = 0
+
+        while i < len(blockLie):
+            if blockLie[i][0] == y:
+                # Apply + [1,0] and add on block
+                blocks.append([blockLie[i][0] + 1, blockLie[i][1]])
+
+        return blockLie
+
+    """
+        Get last Y coordonate in an array of position
+    """
+    def getYCoord(self, array):
+        return array[len(array) - 1][0]
+
+    """
+        Deplace la scene de jeux vers le haut
+    """
+    def moveSceneTop(self):
+        self.array.blocks.pop(0)
+        self.insertBackg()
+        self.game()
+
+    """
+        Simuler la destruction d'un block
+    """
 
     ## Functions
 
@@ -224,7 +316,11 @@ class Menu(Fenetre):
         Traduire un deplacement en coordonée
         Cree une fonction qui me permet de faire
         -1 et +1 dans un array
-    """
+        ---------------------------------------
+        @params:
+            - tab: Array de position
+        @return:
+            - result: coordonée de deplacement
     def directionForFusion(self, tab):
         result = []
 
@@ -234,6 +330,7 @@ class Menu(Fenetre):
             result.append([x,y])
 
         return result
+    """
 
     # size pour 1 block block_size [0]: longueur, [1]: largeur
     #size = (0, 0, block_size[0], block_size[1])
