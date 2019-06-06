@@ -14,12 +14,12 @@ SPECIAL=['brown', 'white', 'crystal'] # Block au proprieté commune
         "Special" : Bool
     }
 """
-def getRandomColor():
+def getRandomColor(level=0):
     # Init
     isSpecial=False # say if the block is SPECIAL
 
     # Ici on choisit 1/5 pour les variable SPECIAL et 4/5 pour les REGULAR
-    arrayOfColor = (REGULAR * 2) + SPECIAL + (REGULAR * 2)
+    arrayOfColor = (REGULAR * 2) + SPECIAL + (REGULAR * 2) + ['brown'] * level
 
     # Obtenir aleatoirement un nombre et l'ajouter à la variable index,
     # Selon un ensemble allant de 1 a taille de la variable arrayOfColor

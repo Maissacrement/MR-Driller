@@ -6,29 +6,52 @@ class ArrayBlock():
 
     """Propriete generale d'un Block."""
 
-    def __init__(self,c,l):
+    def __init__(self,l,c):
         """Constante"""
         self.blocks = []
-        self.c = c # colonne
         self.l = l # ligne
+        self.c = c # colonne
+        self.level = 1
 
-        """
-            Boucle for qui : initialise un tableau de taille (n,m),
-            n étant la largeur (fixe) et m étant la longueur (modulable)
-        """
-        for i in range(c):
-            self.blocks.append([])
-            for j in range(l):
-                random = Color.getRandomColor()
-                self.blocks[i].append(Block.createGoodBlock(random, [i, j]))
-                if(j == l):
-                    self.blocks[i+1].append(Block.createGoodBlock(Color.getRandomColor(), [i, j]))
+        #Generate Array on creted instance
+        self.generateArray()
 
         """End Init"""
 
-    def getPosition(self):
+    """
+        Generate nitialise un tableau de taille (n,m),
+        n étant la largeur (fixe) et m étant la longueur (modulable)
+    """
+    def generateArray(self, level=0):
+        for i in range(self.l):
+            self.blocks.append([])
+            for j in range(self.c):
+                random = Color.getRandomColor(level)
+                self.blocks[i].append(Block.createGoodBlock(random, [i, j]))
+                if(j == self.c):
+                    self.blocks[i+1].append(Block.createGoodBlock(Color.getRandomColor(level), [i, j]))
+
+    """
+        Get block size
+    """
+    def getSize(self):
         return [self.c, self.l]
 
+    """
+        set Block size
+    """
+    def setSize(self, l,c):
+        self.l, self.c = l,c
+
+    """
+        Up level
+    """
+    def changeLevel(self):
+        level+=1
+
+    """
+        Recuperer un block selon sa position
+    """
     def getBlock(self, position):
         """reject"""
         if type(position) is not list:

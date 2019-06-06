@@ -9,32 +9,11 @@ News :  `Ajout d'un fichier Test.py permettant des tester rapidement un object o
 
 ```
 
-les "--" representent les propositions de changement
-
-2. Les blocs : ✔
-    compareBlock(Blocs) : compare si ce Blocs peut etre Lie a celui en parametre et renvoie un Boolean
-    -- La fonction de fusion de blocs
-       (comment representer la fusion, un block indepant ne connais pas la scene de jeux ?)
-    -- La fonction de chute de blocs
-      (juste l'info qui lui dit "je peux tomber", donc seulement l'info SI il peut tomber,
-       non pas la chute en elle même, gérée par la scène)
-      1. Un block neut peux pas savoir ou il est dans le tableau,
-        sachant qu'il est independant du tableau, possibilité de deplace vers arrayBlock
-    (Les blocks ont tous les memes propiete peut importe leur couleur seul la valeur de la propieté change)
-    ou
-    (On cree des class pour tous les differents block que l'on range dans un dossier sousBlocks)
-    - Les différents blocs de couleurs / propriétés différentes
-    - les blocs de crystal (décrits dans le sujet)
-    - Les blocs blancs
-    - Les blocs marrons
-2.3 delBlock: ✔
-    - Faire une fonction "destruction de blocs"
-2.4 generateRandomBlock()
-    - Cette procedure de genere aleatoirement des Block
 3. Completer Personnage :
     - ajout de la fonction de drill
     - fonction mouvements (Avec les spécificités)
     - objet à part =/= d'un bloc
+
 5. ArrayBlock complete le tableau avec les bonne proportionnalite:
     - Essayer de generer des niveau de difficulté (peut-etre en ajoutant un argument a l'init)
     - faire en sorte que la difficulté puisse etre changée en fonction de l'avancée dans le jeu (le niveau)
@@ -46,20 +25,10 @@ les "--" representent les propositions de changement
     - addBlockLie : Ajoute au tableau de block lie une liste de block
                     relie selon lie et compareBlock dans Block
     - popBlockLie : qui suprime tous les block lie du tableau
-6 . Fenetre:
-    - Il s'agit uniquement d'une page blanche mere du menu et de la scene de jeu
-    - Simple affichage vide pygame page blanche
-8. Menu:
-  Affichage provenant de fenetre
-    - Methode permettant de generer graphiquement un scene en fonction d'un tableau:
-       - 1. qui relie les infos prises dans la scène de jeu pour y appliquer des sprites
-            (faire en sortes qui si cette fonction voit qu'il y a un bloc rouge en [x,y]
-            elle affiche un bloc rouge à cet endroit)
-       - 2. Function permettant de mettre a jour avec un array en parametre
-            (Voir si on peut faire en sorte qu'il se mette a jour tous seul)
-       - 3. gerer la profondeur
-    - affiche l'etat de la scene, donc un tableau qui traduit les positions / les couleurs / etc...
-      ce qu'il se passe dans le jeu en gros.
+
+7. Menu:
+    - Simuler la destruction d'un block
+
 9. Stucture :
     - Init un tableau de block random, dont la proportionnalité peut être changée
       facilement en fonction du level.
@@ -273,22 +242,25 @@ Intro: Il s'agit du menu
 
       Methode:
         Procedure:
-          - run
-          - controller
+          - init(Array)
           - started
-          - game(Array)
-          - clear
+          - game
+          - controller
+          - run
 
       Détail methods:
-        run : gerer un click
+        init : initialisation des variable du jeux and run config
+        started: demmarer le menu du jeux
         controller : assure la redirection entre le jeux et menu
-        game : initialisée la scene de jeux graphique en fonction d'un tableau
-        started: afficher le menu
-        clear : Supprime la scene actuel scene
+        run: Gere le click du boutton du menu du jeux
+        game :  Lancer la scene de jeux
+        drawBlock : Affiche un block sur la scene selon des coordonnées
+        moveSceneTop: Deplace la scene du jeux vers le haut et
+        permet aussi de generer un nouveau tableau + niveau
+
         config : initialise une fenetre pygame
         exit : permet de gere la sortie
 ```
-
 
 ## 8. Main
 

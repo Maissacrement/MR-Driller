@@ -1,41 +1,50 @@
 from Objects.Fenetre import *
+from time import *
 
 WHITE = (255,255,255)
 RED = (255,0,0)
 BLACK = (0,0,0)
 BLUE = (0,0,255)
+YELLOW = (240,176,16,1)
 
 class Menu(Fenetre):
 
-    def __init__(self, mySurface, title, Player):
+    def __init__(self, mySurface, title):
         Fenetre.__init__(self, mySurface, title)
-        self.Player = Player
-        self.array = None
-        self.button = None
         self.display = "menu"
         self.changed = False
+        self.simulation = False
+        self.display_line = 10 # Cut screen vertically in 10
+        self.split = 3 # proportionnalité du partage d'ecran
+        self.screenLimit = 5 # started draw block
+        self.level = 1
 
-    """
-        Set Array
-    """
-    def setArray(self, anArray):
-        self.array = anArray
+    # Methods
 
+    ## Procedures
     """
-        Gerer la transition entre le Menu et Le jeux
+        init variable of games and run config
     """
-    def controller(self):
-        if self.changed == True:
-            self.changed = False
-            self.insertBackg()
-            # self.clear()
-            if self.display == "menu":
-                self.started()
-            if self.display == "game":
-                if self.array == None:
-                    print('Ajouter un array')
-                else:
-                    self.game()
+    def init(self, array):
+        # Constant
+
+        # Get screen size
+        x, y = self.mySurface # Taille total de l'ecran
+        # ecran scindé en longueur
+        self.sizeFirstScreen = x - (x/self.split) # ecran1 : Jeux
+        self.sizeSecondScreen = x - self.sizeFirstScreen # ecran2 : Score
+
+        # Colonne, Line pour l'affichage
+        x_col,y_line = array.c, self.display_line
+
+        # Block size : width and height
+        self.block_size = [self.sizeFirstScreen/x_col, y/y_line]
+
+        # Save Array
+        self.array = array
+
+        # run config
+        self.config()
 
     """
         run menu
@@ -61,16 +70,48 @@ class Menu(Fenetre):
         # cree le button et le positionner
         self.button = pygame.draw.rect(self.screen, (255, 0, 0), pygame.Rect((x - 30), (y + 100), 60, 30))
 
-        # gerer la position du Titre Mr driller
-        #self.screen.blit( self.text,
-        #    (x - (self.text.get_width() // 2), (y - 100) - (self.text.get_height() // 2))
-        #)
-
         # gerer la position du text du boutton
-        self.screen.blit(self.subfont.render('Start', True, BLACK), ((x - 30), y + 100))
+        self.screen.blit(self.subfont.render(' Start', True, BLACK), ((x - 30), y + 100))
 
         # maj affichage
         pygame.display.flip()
+
+    """
+        run game
+    """
+    def game(self):
+
+        #GET Blocks
+        list_of_blocks = self.array.blocks
+
+        # Get block size
+        block_size = self.block_size
+
+        for y in range(len(list_of_blocks)):
+            for x in range(len(list_of_blocks[y])):
+
+                # Define image path
+                path = "Assets/Blocks/" + list_of_blocks[y][x].couleur + ".png"
+
+                # Draw block
+                self.drawBlock([x, y + self.screenLimit], path)
+
+
+    """
+        Gerer la transition entre le Menu et Le jeux
+    """
+    def controller(self):
+        if self.changed == True:
+            self.changed = False
+            self.insertBackg()
+            if self.display == "menu":
+                self.started()
+            if self.display == "game":
+                if self.array == None:
+                    print('Game hasn\'t init')
+                else:
+                    # Lancer le jeux
+                    self.game()
 
     """
         Gere un click
@@ -89,110 +130,154 @@ class Menu(Fenetre):
                     self.button = None
                     self.changed = True
 
-    def clear(self):
-        self.screen.fill((255,255,255))
-        pygame.display.update()
-
     """
-        run game
+        Print graphical block
+        ---------------------
+        @params:
+            pos: Array<Int,Int> as [x,y]
+                -indiqué la position du block
+            img: String
+                - indique le path relatif a l'image
+        @params optional:
+            merged: boolean
+                -indiqué si il s'agit d'un bloclie ou non
     """
-    def game(self):
-        # Constant
-        x, y = self.mySurface # recuperer la taille de l'ecran
-        x = x - (x/6) # cree un espace pour le score
-        i=0
+    def drawBlock(self, pos, img, merged=False):
+        x, y = 0,0 # image position
 
-        ## User entry
-        x_col,y_line = self.array.getPosition()
+        # onMerge remove spaces
+        if merged:
+            x, y = 20, 8 # linked block
 
-        # Element of compare min and max
-        horizontal, vertical = 0,0
-        translate_h, translate_v = x//x_col, y//y_line
+        #img path
+        #display img on the window
+        pos_x, pos_y = pos # GET Block position
+        translate_h, translate_v = self.block_size  # Get Block size
+        size = (x, y, translate_h, translate_v) # Define block dimension
 
-        # Boolean
-        tracer = True
-        tracer_line = True
-
-        # cree le button et le positionner
-        #self.pygame.draw.rect(self.screen, BLUE, pygame.Rect(0, 0, translate_h, translate_v))
-
-        # maj affichage
-        pygame.display.flip()
-        color = ["green","yellow",None,"brown"]
-
-        while i < (x_col * y_line) + 1:
-            size = (0, 0, translate_h, translate_v)
-            path = "Assets/Blocks/yellow.png"
-            self.insert(path, [horizontal, vertical], size)
-            if i !=0:
-                horizontal+= translate_h
-                if(i % x_col == 0):
-                    vertical+= translate_v
-                    horizontal = 0
-                # path = "Assets/Blocks/"+color[i-1]+".png"
-                #if i < len(color) and color[i-1] != None:
-
-            i+=1
-            print('i:',i,vertical, horizontal)
-
-        """
-        while tracer or tracer_line:
-            size = (0, 0, translate_h, translate_v)
-
-            if horizontal < x:
-
-                self.pygame.draw.line(self.screen, BLACK, (horizontal, 0), (horizontal,y), 5)
-
-                self.insert("Assets/Blocks/green.png", [horizontal, translate_v], size)
-
-                horizontal+= translate_h
-
-            elif tracer == True:
-                tracer = False
-
-            if vertical < y:
-                self.pygame.draw.line(self.screen, BLACK, (0, vertical), (x,vertical), 5)
-
-                vertical+= translate_v
-            elif tracer_line == True:
-                tracer_line = False
-        """
-
-    def insert(self, img, pos, size):
-        # Inserer un fond d'ecran
-        path = img
-        background_image = pygame.image.load(path).convert()
-        background_image = pygame.transform.scale(background_image, (1250, int(50)))
+        pos = [translate_h * pos_x, translate_v * pos_y]
+        background_image = pygame.image.load(img) # Chargez l'image
+        background_image = pygame.transform.scale(
+            background_image, (1800, int(60))
+        )
         self.screen.blit(background_image,
             pos, # Position
         size) # Taille
 
     """
-    def game(self, size):
-        # Constant
-        x, y = self.mySurface # recuperer la taille de l'ecran
-        x = x - (x/6) # cree un espace pour le score
-
-        ## User entry
-        x_col,y_line = size
-
-        # Element of compare min and max
-        horizontal, vertical = 0,0
-        translate_h, translate_v = x/x_col, y/y_line
-
-        # Boolean
-        tracer = True
-        tracer_line = True
-
-        while tracer:
-            self.pygame.draw.line(self.screen, BLACK, (horizontal, 0), (horizontal,y), 5)
-            horizontal+= translate_h
-            if horizontal > x:
-                tracer = False
-
-        while tracer_line:
-            self.pygame.draw.line(self.screen, BLACK, (0, vertical), (x,vertical), 5)
-            vertical+= translate_v
-            if vertical > y:
-                tracer_line = False
+        Deplace la scene de jeux vers le haut
     """
+    def moveSceneTop(self):
+        if self.screenLimit > 0:
+            self.screenLimit-=1
+        else:
+            if len(self.array.blocks) > 0:
+                self.array.blocks.pop(0)
+                print('remove')
+            else:
+                print('generate another tab')
+
+        self.insertBackg()
+        self.game()
+
+    """
+        Simuler la destruction d'un block
+    """
+
+    """
+        Test Function
+        ---------------------------------------------------------
+    """
+
+    """
+        Lancer la simulation de la chute de blocks
+        au Click
+        ------------------------------------------
+        @params:
+            - event : permet de recuperer un evenementsur la fenetre
+    """
+    def simulateAtClick(self, event):
+        # BlockLie
+        array = [
+            [3,4],
+            [3,1],
+            [3,3],
+            [3,2],
+            [4,4],
+            [4,5]
+        ]
+        # Init  simulation
+
+        if self.display == "game":
+            #self.mergeBlocks(array)
+            if event.type == pygame.MOUSEBUTTONUP and self.simulation == True:
+                #self.chuteSimulation(array)
+                self.moveSceneTop()
+
+            self.simulation = True
+
+    """
+        Simulation de la chute d'un ensemble de block
+        ---------------------------------------------
+        @params:
+            - blockLie : Tableu de position
+    """
+    def chuteSimulation(self, blockLie):
+        newArray = []
+        blockLie.sort()
+
+        for el in blockLie:
+            newArray.append([el[0], el[1] + 1])
+
+        print(newArray)
+        self.insertBackg()
+        #self.mergeBlocks(newArray) # maj graphique du jeux
+
+        # maj affichage
+        pygame.display.flip()
+
+    """
+        The array need sorted !
+        Create auto chechk
+        -----------------------
+        @params:
+            - blockLie : Tableu de position
+    """
+    def canIMoveDown(self, blockLie):
+        i = 0
+        iCan = True
+        emplacement = self.getBlockWhoWantMove(blockLie)
+        blocks = self.array.blocks
+
+        while i < len(emplacement) and iCan:
+            x,y = emplacement[i]
+            if not blocks[x][y] == None:
+                iCan = False
+
+        return iCan
+
+    """
+        Recuperer un tableau de position
+        representant l'emplacement des
+        block de dernier rang
+        -------------------------------
+        @params:
+            - blockLie : Tableu de position
+    """
+    def getBlockWhoWantMove(self, blockLie):
+        blocks = []
+        y = getYCoord(blockLie)
+        i = 0
+
+        while i < len(blockLie):
+            if blockLie[i][0] == y:
+                # Apply + [1,0] and add on block
+                blocks.append([blockLie[i][0] + 1, blockLie[i][1]])
+
+        return blockLie
+
+    """
+        Get last Y coordonate in an array of position
+    """
+    def getYCoord(self, array):
+        return array[len(array) - 1][0]

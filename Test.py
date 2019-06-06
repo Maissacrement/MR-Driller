@@ -88,22 +88,28 @@ if sys.argv[1] == "Simulation":
     pygame.quit()
 
 
-
 if sys.argv[1] == "Menu":
     print('Welcom in Menu Test')
     inProgress = True
-
-    # Init plateform
-    jeux = Menu((1000,500),"Mr driller","p1")
-    jeux.config()
-
-    # start Menu
-    jeux.started()
+    nb_col = 10
 
     # init an array
-    tab = ArrayBlock(16, 10)
-    jeux.setArray(tab)
-    print(vars(tab)['blocks'])
+    tab = ArrayBlock(16, nb_col)
+
+    printc = []
+    for el in range(len(tab.blocks)):
+        printc.append([])
+        for blk in tab.blocks[el]:
+            printc[el].append(blk.couleur)
+
+    print(printc)
+
+    # Init plateform
+    jeux = Menu((1000,500),"Mr driller") # Get Menu instance
+    jeux.init(tab) # init game config
+
+    # Start Menu of Game
+    jeux.started()
 
     while inProgress:
 
@@ -111,8 +117,10 @@ if sys.argv[1] == "Menu":
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 inProgress = False
+
             jeux.run(event) # gerer les evenement click
             jeux.controller() # gere les transition entre scene du jeux
+            jeux.simulateAtClick(event)
 
         # Maj
         pygame.display.update()
