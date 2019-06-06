@@ -12,7 +12,7 @@ from Objects.Capsule import * # Recuperer l'object Capsule
 from Objects.Personnage import * # Recuperer l'object Personnage
 from Objects.ArrayBlock import * # Recuperer l'object Block
 from Objects.Menu import * # Recuperer le Menu
-from Objects.SImulation import *
+from Objects.Simulation import *
 ## Function
 from Functions.getRandomColor import * # Recuperer la function getRandomColor()
 from Functions.createGoodBlock import * # Recuperer la function createGoodBlock
@@ -69,10 +69,11 @@ if sys.argv[1] == "createGoodBlock":
     print(generateGoodBlock)
     print(vars(generateGoodBlock))
 
-if sys.argv[1] == "Perso":
+if sys.argv[1] == "Simulation":
     inProgress = True
     simulation = Simulation(mySurface, title, Player)
     simulation.config()
+    simulation.createPlayer()
 
     while inProgress:
 
