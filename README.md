@@ -198,6 +198,7 @@ Intro: Il s'agit d'un tableau composé de Block
         Lie : Renvoie true si un block peut etre lie a un autre
         getBlockLie : Retourne un tableau de block selon le block passer en parametre
         Update : faire descandre les blocs qd il y a des espaces vide
+        popBlock : suprime un block selon ses coordonne
         popBlockLie : qui suprime tous les block lie du tableau
         addBlockLie : Ajoute au tableau de block lie une liste de block
                       relie selon lie et compareBlock dans Block

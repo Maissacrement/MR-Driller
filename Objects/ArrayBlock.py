@@ -50,6 +50,14 @@ class ArrayBlock():
     def changeLevel(self):
         self.level+=1
 
+    def popBlock(self, pos):
+        x,y = pos
+        self.blocks[y][x] = 0
+
+    def popBlockLie(self, arrayOfBlockLie):
+        for this in arrayOfBlockLie:
+            self.popBlock(this)
+
     """
         Recuperer un block selon sa position
     """

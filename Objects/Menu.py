@@ -189,6 +189,7 @@ class Menu(Fenetre):
         else:
             if len(self.array.blocks) > 0:
                 self.array.blocks.pop(0)
+                self.array.popBlockLie([[3, 0],[3,1]])
                 print('remove')
             else:
                 self.screenLimit=4
