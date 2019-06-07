@@ -208,14 +208,42 @@ class Menu(Fenetre):
             # On initialise la case precedante
             #del self.array.blocks[py][px]
             if event.key == pygame.K_LEFT:
+                self.array.blocks[py][px] = 0
+                Perso.position[1]-=1
+                py,px = Perso.position
+                self.array.blocks[py][px] = Perso
+                print("LEFT")
+            if event.key == pygame.K_RIGHT:
+                self.array.blocks[py][px] = 0
+                Perso.position[1]+=1
+                py,px = Perso.position
+                self.array.blocks[py][px] = Perso
+                print("LEFT")
+
+
+            self.insertBackg()
+            self.game()
+
+    def movePerso2(self, event):
+        Perso = self.perso
+        if event.type == pygame.KEYDOWN:
+            py,px = Perso.position
+            print('px: ', px)
+            # On initialise la case precedante
+            #del self.array.blocks[py][px]
+            if event.key == pygame.K_LEFT:
                 Perso.position[1]-=1
                 self.array.blocks[py][px+1] = 0
-                print(Perso.position)
+                print("LEFT")
+
+                self.array.blocks[py][px] = Perso
             if event.key == pygame.K_RIGHT:
                 Perso.position[1]+=1
                 self.array.blocks[py][px-1] = 0
+                print("RIGHT")
 
-            self.array.blocks[py][px] = Perso
+                self.array.blocks[py][px] = Perso
+
             print(self.array.blocks[py])
             #print(self.array.blocks)
 
