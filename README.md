@@ -1,9 +1,17 @@
 # MR Driller : 1DEV
 
-## Jeux
+## TECHNICAL DOCUMENTATION
 
+### HOW TO RUN THE PROJECT
 
-News :  `Ajout d'un fichier Test.py permettant des tester rapidement un object ou une fonction. Afin de lancer un test suivre les indication enfin de chaques sous chapitre de documentation.`
+RUN : `python3 Main.py`
+RUN TEST:
+  -`python3 Test.py Capsule`
+  -`python3 Test.py Personnage`
+  -`python3 Test.py ArrayBlock`
+  -`python3 Test.py getRandomColor`
+  -`python3 Test.py Simulation`
+  -`python3 Test.py Menu`
 
 ### A faire
 

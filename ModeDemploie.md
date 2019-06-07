@@ -1,4 +1,4 @@
-# Constraint
+# User documentation
 
 ### Contrainte principal
 
@@ -34,7 +34,7 @@ Win:
   -Il gagne s'il atteint tous les niveaux.
 
 
-## Fonctionalité du jeu:
+### Fonctionalité du jeu:
     Level:
     -Le jeu comprend 10 level
     -la profondeur du jeu augmente au fur et a mesure que le niveau est eleve
@@ -44,3 +44,7 @@ Win:
     -Afficher le score du joueur max deja obtenue
     Pause:
     -Le joueur doit pouvoir suspendre une partie en cours
+
+### Keyboard input
+
+Utiliser les fleche du clavier pour vous deplacer
