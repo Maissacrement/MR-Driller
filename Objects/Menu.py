@@ -189,7 +189,7 @@ class Menu(Fenetre):
         else:
             if len(self.array.blocks) > 0:
                 self.array.blocks.pop(0)
-                self.array.popBlockLie([[3, 0],[3,1]])
+                #self.array.popBlockLie([[3, 0],[3,1]])
                 print('remove')
             else:
                 self.screenLimit=4
@@ -219,7 +219,14 @@ class Menu(Fenetre):
                 py,px = Perso.position
                 self.array.blocks[py][px] = Perso
                 print("LEFT")
-
+            if event.key == pygame.K_DOWN:
+                print('DOWN')
+                self.array.blocks[py][px] = 0
+                self.array.blocks[py + 1][px] = 0
+                Perso.position[0]+=1
+                py,px = Perso.position
+                self.array.blocks[py][px] = Perso
+                self.moveSceneTop()
 
             self.insertBackg()
             self.game()
@@ -246,6 +253,8 @@ class Menu(Fenetre):
 
             print(self.array.blocks[py])
             #print(self.array.blocks)
+
+            #self.movePerso(event)
 
             self.insertBackg()
             self.game()
