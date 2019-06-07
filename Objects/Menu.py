@@ -200,6 +200,28 @@ class Menu(Fenetre):
         self.insertBackg()
         self.game()
 
+    def movePerso(self, event):
+        Perso = self.perso
+        if event.type == pygame.KEYDOWN:
+            py,px = Perso.position
+            print('px: ', px)
+            # On initialise la case precedante
+            #del self.array.blocks[py][px]
+            if event.key == pygame.K_LEFT:
+                Perso.position[1]-=1
+                self.array.blocks[py][px+1] = 0
+                print(Perso.position)
+            if event.key == pygame.K_RIGHT:
+                Perso.position[1]+=1
+                self.array.blocks[py][px-1] = 0
+
+            self.array.blocks[py][px] = Perso
+            print(self.array.blocks[py])
+            #print(self.array.blocks)
+
+            self.insertBackg()
+            self.game()
+
     """
         Simuler la destruction d'un block
     """

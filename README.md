@@ -8,6 +8,7 @@ News :  `Ajout d'un fichier Test.py permettant des tester rapidement un object o
 ### A faire
 
 ```
+Regrouper tous les event graphique dans une fonction
 
 3. Completer Personnage :
     - ajout de la fonction de drill

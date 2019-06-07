@@ -125,6 +125,7 @@ if sys.argv[1] == "Menu":
             jeux.run(event) # gerer les evenement click
             jeux.controller() # gere les transition entre scene du jeux
             jeux.simulateAtClick(event)
+            jeux.movePerso(event)
 
         # Maj
         pygame.display.update()
