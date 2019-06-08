@@ -11,20 +11,20 @@ def main():
     tab = ArrayBlock(16, nb_col) # Generate Array
     perso1 = Personnage("myperso",[0,nb_col//2], "Assets/Blocks/air.png")
 
-    printc = []
-    for el in range(len(tab.blocks)):
-        printc.append([])
-        for blk in tab.blocks[el]:
-            if not type(blk) == int:
-                printc[el].append(blk.couleur)
-            else:
-                printc[el].append(0)
-
-    print(printc)
-
     # Init plateform
     jeux = Menu((1000,500),"Mr driller") # Get Menu instance
     jeux.init(tab, perso1) # init game config
+
+    printc = []
+    for el in range(len(jeux.array.blocks)):
+        printc.append([])
+        for blk in jeux.array.blocks[el]:
+            if not (type(blk) == Personnage or type(blk) == int):
+                printc[el].append(blk.couleur)
+            else:
+                printc[el].append(blk)
+
+    print(printc)
 
     # Start Menu of Game
     jeux.started()
@@ -38,8 +38,8 @@ def main():
 
             jeux.run(event) # gerer les evenement click
             jeux.controller() # gere les transition entre scene du jeux
-            jeux.simulateAtClick(event)
             jeux.movePerso(event)
+            #jeux.simulateAtClick(event)
 
         # Maj
         pygame.display.update()

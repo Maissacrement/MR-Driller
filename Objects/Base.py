@@ -39,3 +39,22 @@ class Base():
     """fonction qui tcheck si il y a un block autour du block"""
     def nearOf(position):
         pass
+
+    def setPosition(self, pos):
+        self.position[0], self.position[1] = pos
+
+    def incX(self, max):
+        if self.position[1] < max :
+            self.position[1] = self.position[1] + 1
+
+    def incY(self, max):
+        if self.position[0] < max:
+            self.position[0] = self.position[0] + 1
+
+    def decX(self):
+        if self.position[1] > 0:
+            self.position[1]-=1
+
+    def decY(self):
+        if self.position[0] > 0:
+            self.position[0]-=1

@@ -18,7 +18,7 @@ class Menu(Fenetre):
         self.simulation = False
         self.display_line = 10 # Cut screen vertically in 10
         self.split = 3 # proportionnalité du partage d'ecran
-        self.screenLimit = 4 # started draw block
+        self.screenLimit = 6 # started draw block
         self.level = 1
 
     # Methods
@@ -47,10 +47,11 @@ class Menu(Fenetre):
 
         # Perso
         self.perso = perso
+        print(vars(self.perso))
 
         # Ajout du personnage sur la scene de jeux
         py,px = perso.position
-        self.array.blocks[py][px] = perso
+        self.array.blocks[0][5] = perso
 
         print(self.array)
 
@@ -189,17 +190,18 @@ class Menu(Fenetre):
         else:
             if len(self.array.blocks) > 0:
                 self.array.blocks.pop(0)
+                self.perso.position[0]-=1 # UPDATE PERSO POSITION
                 #self.array.popBlockLie([[3, 0],[3,1]])
                 print('remove')
             else:
-                self.screenLimit=4
+                self.screenLimit=6
                 self.array.generateArray(self.level)
                 self.array.changeLevel()
                 print('generate another tab')
 
-        self.insertBackg()
-        self.game()
+        self.refreshScreen()
 
+    """
     def movePerso(self, event):
         Perso = self.perso
         if event.type == pygame.KEYDOWN:
@@ -221,43 +223,102 @@ class Menu(Fenetre):
                 print("LEFT")
             if event.key == pygame.K_DOWN:
                 print('DOWN')
-                self.array.blocks[py][px] = 0
-                self.array.blocks[py + 1][px] = 0
+                print([py,px])
+                print(self.array.blocks)
+                self.array.blocks[px][py] = 0
                 Perso.position[0]+=1
                 py,px = Perso.position
-                self.array.blocks[py][px] = Perso
+                self.array.blocks[px][py] = Perso
                 self.moveSceneTop()
 
             self.insertBackg()
             self.game()
+    """
+
+    def refreshScreen(self):
+        self.insertBackg()
+        self.game()
 
     def movePerso2(self, event):
-        Perso = self.perso
+        Perso = self.perso # SAVE PERSO
+        # KEYBOARD INPUT
         if event.type == pygame.KEYDOWN:
-            py,px = Perso.position
-            print('px: ', px)
+            py,px = Perso.position # GET POSITION
+            if event.key == pygame.K_LEFT and px > 0:
+                self.array.blocks[py][px] = 0
+                Perso.position[1]-=1
+                py,px = Perso.position
+                self.array.blocks[py][px] = Perso
+                self.refreshScreen()
+            if event.key == pygame.K_RIGHT and px > len(self.array.blocks) - 1:
+                self.array.blocks[py][px] = 0
+                Perso.position[1]+=1
+                py,px = Perso.position
+                self.array.blocks[py][px] = Perso
+                self.refreshScreen()
+            if event.key == pygame.K_DOWN: # DOWN INPUT
+                if py > 0: # Y COORDONATE > 0
+                    print([py,px])
+                    self.array.blocks[py-1][px] = 0 # REMOVE PREVIOUS BLOCK
+                    self.array.blocks[py][px] = 0 # REMOVE BLOCK
+                    self.array.blocks[py][px] = Perso # REPLACE 0 BY PERSO
+                    self.perso.position[0]+=1 # CHANGE TO DOWN CASE
+                else:
+                    self.perso.position[0]+=1 # CHANGE TO DOWN CASE
+                    self.array.blocks[py][px] = 0 # INIT CASE
+                    self.array.blocks[py][px] = Perso # REMOVE BLOCK
+
+                self.moveSceneTop()
+
+    def movePerso(self, event):
+        blocks = self.array.blocks
+        maxX = len(blocks[0]) - 1
+        maxY = len(blocks) - 1
+        if event.type == pygame.KEYDOWN:
+            py,px = self.perso.position
+            print('px: ', [py,px])
             # On initialise la case precedante
             #del self.array.blocks[py][px]
             if event.key == pygame.K_LEFT:
-                Perso.position[1]-=1
+                self.perso.decX()
+                py,px = self.perso.position
                 self.array.blocks[py][px+1] = 0
-                print("LEFT")
+                self.array.blocks[py][px] = 0
+                self.array.blocks[py][px] = self.perso
+                print('px: ', [py,px])
 
-                self.array.blocks[py][px] = Perso
+                self.refreshScreen()
             if event.key == pygame.K_RIGHT:
-                Perso.position[1]+=1
+                self.perso.incX(maxX)
+                py,px = self.perso.position
                 self.array.blocks[py][px-1] = 0
-                print("RIGHT")
+                self.array.blocks[py][px] = 0
+                self.array.blocks[py][px] = self.perso
+                print('px: ', [py,px])
 
-                self.array.blocks[py][px] = Perso
+                self.refreshScreen()
+            if event.key == pygame.K_DOWN: # DOWN INPUT
+                self.perso.incY(maxY)
+                py,px = self.perso.position
+                self.array.blocks[py-1][px] = 0 # REMOVE PREVIOUS BLOCK
+                self.array.blocks[py][px] = 0 # REMOVE BLOCK
+                self.array.blocks[py][px] = self.perso # REPLACE 0 BY PERSO
+                print('py: ', [py,px])
+                """
+                if py > 0: # Y COORDONATE > 0
+                    print([py,px])
+                    self.array.blocks[py-1][px] = 0 # REMOVE PREVIOUS BLOCK
+                    self.array.blocks[py][px] = 0 # REMOVE BLOCK
+                    self.array.blocks[py][px] = self.perso # REPLACE 0 BY PERSO
+                    # self.perso.position[0]+=1 # CHANGE TO DOWN CASE
+                else:
+                    # self.perso.position[0]+=1 # CHANGE TO DOWN CASE
+                    self.array.blocks[py][px] = 0 # INIT CASE
+                    self.array.blocks[py][px] = self.perso # REMOVE BLOCK
+                """
 
-            print(self.array.blocks[py])
-            #print(self.array.blocks)
-
-            #self.movePerso(event)
-
-            self.insertBackg()
-            self.game()
+                #Refresh when drill
+                self.moveSceneTop()
 
     """
         Simuler la destruction d'un block
