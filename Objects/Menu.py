@@ -51,7 +51,7 @@ class Menu(Fenetre):
 
         # Ajout du personnage sur la scene de jeux
         py,px = perso.position
-        self.array.blocks[0][5] = perso
+        self.array.blocks[py][px] = perso
 
         print(self.array)
 
@@ -188,14 +188,19 @@ class Menu(Fenetre):
         if self.screenLimit > 0:
             self.screenLimit-=1
         else:
-            if len(self.array.blocks) > 0:
+            print('lenght: ', len(self.array.blocks))
+            if len(self.array.blocks) > 7:
                 self.array.blocks.pop(0)
                 self.perso.position[0]-=1 # UPDATE PERSO POSITION
                 #self.array.popBlockLie([[3, 0],[3,1]])
                 print('remove')
             else:
                 self.screenLimit=6
+                self.array.blocks = []
                 self.array.generateArray(self.level)
+                py,px = self.perso.position
+                self.perso.setPosition([0, px])
+                self.array.blocks[0][px] = self.perso
                 self.array.changeLevel()
                 print('generate another tab')
 
