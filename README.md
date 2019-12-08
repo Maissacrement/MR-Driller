@@ -3,6 +3,9 @@
 ## TECHNICAL DOCUMENTATION
 
 ### HOW TO RUN THE PROJECT
+requirement:
+
+    - pip install pygame
 
 ```bash
 RUN : `python3 Main.py`
