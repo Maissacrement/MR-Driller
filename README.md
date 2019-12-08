@@ -1,9 +1,17 @@
 # MR Driller : 1DEV
 
+## DEV MENTION
+```bash
+Emmario DELAR
+Anatole JANVION
+Warren ALINGUITE
+```
+
 ## TECHNICAL DOCUMENTATION
 
 ### HOW TO RUN THE PROJECT
 
+```bash
 RUN : `python3 Main.py`
 RUN TEST:
   -`python3 Test.py Capsule`
@@ -12,6 +20,7 @@ RUN TEST:
   -`python3 Test.py getRandomColor`
   -`python3 Test.py Simulation`
   -`python3 Test.py Menu`
+```
 
 ### A faire
 
